@@ -1,0 +1,7 @@
+.git
+.vscode
+.gitignore
+build.bat
+Dockerfile-grocy
+Dockerfile-grocy-nginx
+.DS_store
