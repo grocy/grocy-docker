@@ -1,6 +1,6 @@
 # Grocy on Docker
 
-ERP beyond your fridge - now containerized! This is the docker repo of [https://github.com/grocy/grocy](grocy).
+ERP beyond your fridge - now containerized! This is the docker repo of [grocy](https://github.com/grocy/grocy).
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
 [![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
