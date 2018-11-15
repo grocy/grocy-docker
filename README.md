@@ -9,9 +9,9 @@ ERP beyond your fridge - now containerized! This is the docker repo of [grocy](h
 
 Follow [these instructions](https://docs.docker.com/engine/installation/) to get Docker running on your server.
 
-### Available on Docker Hub (prebuilt) or built from source
+## Available on Docker Hub (prebuilt) or built from source
 
-#### To run using docker just do the following:
+### To run using docker just do the following:
 
 ```
 > docker-compose pull # if you haven't pulled or built
@@ -22,7 +22,7 @@ And grocy should be accessible via `http(s)://localhost/`. The https option will
 
 Note: if you have not pulled any of the images from the repository, when you do an `up`, it will attempt to build from scratch!
 
-#### To pull the latest images to your machine:
+### To pull the latest images to your machine:
 
 ```
 docker pull grocy/grocy-docker:nginx
@@ -31,7 +31,7 @@ docker pull grocy/grocy-docker:grocy
 
 Or just `docker-compose pull`.
 
-#### To build from scratch
+### To build from scratch
 
 ```
 docker-compose build
