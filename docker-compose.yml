@@ -24,9 +24,13 @@ services:
       dockerfile: Dockerfile-grocy
     expose:
       - 9000
+    volumes:
+      - database:/www
     environment:
       PHP_MEMORY_LIMIT:    512M
       MAX_UPLOAD:          50M
       PHP_MAX_FILE_UPLOAD: 200
       PHP_MAX_POST:        100M
     container_name: grocy
+volumes:
+  database:
