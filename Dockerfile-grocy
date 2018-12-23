@@ -1,8 +1,8 @@
 FROM php:7.2-fpm-alpine
 MAINTAINER Talmai Oliveira <to@talm.ai>
 
-ENV REFRESHED_AT  2018-11-15
-ENV GROCY_VERSION 1.22.0
+ENV REFRESHED_AT  2018-12-23
+ENV GROCY_VERSION 1.23.1
 
 RUN	apk update && \
 	apk upgrade && \
@@ -29,7 +29,7 @@ RUN	apk update && \
 	rm -f grocy.zip && \
 	cd grocy-${GROCY_VERSION} && \
 	mv public /www/public && \
-	mv info.php /www/public && \
+#	mv info.php /www/public && \
 	mv controllers /www/controllers && \
 	mv data /www/data && \
 	mv helpers /www/helpers && \
