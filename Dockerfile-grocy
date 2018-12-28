@@ -29,7 +29,6 @@ RUN	apk update && \
 	rm -f grocy.zip && \
 	cd grocy-${GROCY_VERSION} && \
 	mv public /www/public && \
-#	mv info.php /www/public && \
 	mv controllers /www/controllers && \
 	mv data /www/data && \
 	mv helpers /www/helpers && \
