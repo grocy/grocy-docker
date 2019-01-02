@@ -31,6 +31,7 @@ services:
       MAX_UPLOAD:          50M
       PHP_MAX_FILE_UPLOAD: 200
       PHP_MAX_POST:        100M
+      GROCY_CULTURE:       en
     container_name: grocy
 volumes:
   database:
