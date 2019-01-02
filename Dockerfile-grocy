@@ -1,8 +1,8 @@
 FROM php:7.2-fpm-alpine
 MAINTAINER Talmai Oliveira <to@talm.ai>
 
-ENV REFRESHED_AT  2018-12-23
-ENV GROCY_VERSION 1.23.1
+ENV REFRESHED_AT  2019-1-1
+ENV GROCY_VERSION 1.24.0
 
 RUN	apk update && \
 	apk upgrade && \
