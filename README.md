@@ -31,6 +31,20 @@ docker pull grocy/grocy-docker:grocy
 
 Or just `docker-compose pull`.
 
+### Environmental variables:
+
+As of grocy v.1.24.1, ENV variables are accessible via the `docker-compose.yml` file as long as they are prefixed by `GROCY_`. For example, to change the language from english to french, you can modify
+
+```
+GROCY_CULTURE: en
+```
+
+to
+
+```
+GROCY_CULTURE: fr
+```
+
 ### To build from scratch
 
 ```
