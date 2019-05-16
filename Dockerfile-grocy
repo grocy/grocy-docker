@@ -21,7 +21,7 @@ RUN	apk update && \
 #    sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /usr/local/etc/php.ini && \
 #    sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /usr/local/etc/php.ini && \
 #    sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /usr/local/etc/php.ini && \
-	wget hhttps://getcomposer.org/installer -O - -q | php -- --quiet && \
+	wget https://getcomposer.org/installer -O - -q | php -- --quiet && \
 	mkdir -p /tmp/download && \
 	cd /tmp/download && \
 	wget -t 3 -T 30 -nv -O "grocy.zip" "https://github.com/grocy/grocy/archive/v${GROCY_VERSION}.zip" && \
