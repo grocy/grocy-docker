@@ -53,7 +53,7 @@ docker-compose build
 
 ## Additional Information
 
-The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremelly low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 353MB after all the dependencies are downloaded, however). 
+The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremelly low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 490MB after all the dependencies are downloaded, however).
 
 ## License
 The MIT License (MIT)
