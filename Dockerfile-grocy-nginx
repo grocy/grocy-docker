@@ -15,7 +15,8 @@ RUN     apk update && \
                 -days 365 \
                 -nodes \
                 -subj /CN=localhost && \
-        chown nobody /var/tmp/nginx && \
+	mkdir -p /var/tmp/nginx && \
+	chown nobody /var/tmp/nginx && \
         rm -rf /var/cache/apk/*
 
 COPY docker_nginx/nginx.conf /etc/nginx/nginx.conf
