@@ -20,7 +20,7 @@ RUN     apk update && \
         wget https://getcomposer.org/installer -O - -q | php -- --quiet && \
         pip install lastversion==0.2.4 && \
         mkdir -p /tmp/download && \
-        wget -t 3 -T 30 -nv -O "grocy.tar.gz" $(lastversion --source grocy/grocy) && \
+        wget -nv -O "grocy.tar.gz" $(lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
         rm -f grocy.tar.gz && \
         cd grocy-* && \
