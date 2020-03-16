@@ -33,7 +33,7 @@ Or just `docker-compose pull`.
 
 ### Environmental variables:
 
-As of grocy v.1.24.1, ENV variables are accessible via the `docker-compose.yml` file as long as they are prefixed by `GROCY_`. For example, to change the language from english to french, you can modify
+As of grocy v.1.24.1, ENV variables are accessible via the `docker-compose.yml` file as long as they are prefixed by `GROCY_`. For example, to change the language from English to French, you can modify
 
 ```
 GROCY_CULTURE: en
@@ -53,7 +53,7 @@ docker-compose build
 
 ## Additional Information
 
-The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremelly low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 490MB after all the dependencies are downloaded, however).
+The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremely low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 490MB after all the dependencies are downloaded, however).
 
 ## License
 The MIT License (MIT)
