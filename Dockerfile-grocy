@@ -18,12 +18,11 @@ RUN     apk update && \
         sed -i "s|;*listen\s*=\s*/||g" /usr/local/etc/php-fpm.conf && \
         sed -i "s|;*chdir\s*=\s*/var/www|chdir = /www|g" /usr/local/etc/php-fpm.d/www.conf && \
         wget https://getcomposer.org/installer -O - -q | php -- --quiet && \
-        pip install lastversion==0.2.4 && \
         mkdir -p /tmp/download && \
-        wget -t 3 -T 30 -nv -O "grocy.tar.gz" $(lastversion --source grocy/grocy) && \
+        wget -t 3 -T 30 -nv "https://github.com/grocy/grocy/releases/latest/download/grocy.tar.gz" && \
         tar xzf grocy.tar.gz && \
         rm -f grocy.tar.gz && \
-        cd grocy-* && \
+        cd grocy && \
         mv public /www/public && \
         mv controllers /www/controllers && \
         mv data /www/data && \
