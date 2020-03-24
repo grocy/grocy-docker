@@ -3,7 +3,18 @@ LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 
 RUN     apk update && \
         apk upgrade && \
-        apk add --no-cache --update yarn git python py-pip wget freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+        apk add --no-cache --update \
+            yarn \
+            git \
+            python \
+            py-pip \
+            wget \
+            freetype \
+            libpng \
+            libjpeg-turbo \
+            freetype-dev \
+            libpng-dev \
+            libjpeg-turbo-dev && \
         docker-php-ext-configure gd \
             --with-gd \
             --with-freetype-dir=/usr/include/ \
