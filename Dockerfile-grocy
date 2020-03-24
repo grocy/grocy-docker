@@ -58,7 +58,7 @@ RUN     apk update && \
 
 # run php composer.phar with -vvv for extra debug information
 RUN cd /var/www/html && \
-        php composer.phar --working-dir=/www/ -n install && \
+        composer --working-dir=/www/ -n install && \
         cp /www/config-dist.php /www/data/config.php && \
         cd /www && \
         yarn install && \
