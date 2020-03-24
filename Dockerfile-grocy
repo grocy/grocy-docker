@@ -56,7 +56,6 @@ RUN     apk update && \
         rm -rf /var/cache/apk/*
 
 
-# run php composer.phar with -vvv for extra debug information
 RUN cd /var/www/html && \
         composer install --no-interaction --working-dir=/www/ && \
         cp /www/config-dist.php /www/data/config.php && \
