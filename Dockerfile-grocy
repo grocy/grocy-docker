@@ -2,7 +2,6 @@ FROM php:7.2-fpm-alpine
 LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 
 RUN     apk update && \
-        apk upgrade && \
         apk add --no-cache \
             yarn \
             git \

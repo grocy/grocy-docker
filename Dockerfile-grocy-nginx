@@ -2,7 +2,6 @@ FROM alpine:latest
 MAINTAINER Talmai Oliveira <to@talm.ai>
 
 RUN     apk update && \
-        apk upgrade && \
         apk add \
             openssl \
             nginx && \
