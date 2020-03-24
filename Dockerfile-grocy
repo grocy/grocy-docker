@@ -45,10 +45,10 @@ RUN     apk update && \
         mv publication_assets/ /www/publication_assets && \
         mv services/ /www/services && \
         mv views/ /www/views && \
+        mv composer.* /root/.composer/ && \
         mv .yarnrc /www/ && \
         mv *.php /www/ && \
         mv *.json /www/ && \
-        mv composer.* /root/.composer/ && \
         mv *yarn* /www/ && \
         mv *.sh /www/ && \
     # Cleaning up
