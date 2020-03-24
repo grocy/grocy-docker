@@ -58,7 +58,8 @@ RUN     apk update && \
 
 # run php composer.phar with -vvv for extra debug information
 RUN cd /var/www/html && \
-        COMPOSER_AUTH="{\"github-oauth\": {\"github.com\": \"${GITHUB_API_TOKEN}\"}}" php composer.phar --working-dir=/www/ -n install && \
+        COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" php composer.phar --working-dir=/www/ -n install && \
         cp /www/config-dist.php /www/data/config.php && \
         cd /www && \
         yarn install && \
