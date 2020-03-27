@@ -1,9 +1,31 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 
+# Optionally authenticate with GitHub using an API token
+#
+# This can reduce instances of download rate limiting by GitHub
+# https://developer.github.com/v3/#rate-limiting
+#
+# This value is *not* assigned to a variable using the ENV instruction,
+# since those variables are persisted in the resulting image and could leak
+# developer credentials
+# https://docs.docker.com/engine/reference/builder/#env
+ARG GITHUB_API_TOKEN
+
 RUN     apk update && \
-        apk upgrade && \
-        apk add --no-cache --update yarn git python py-pip wget freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+        apk add --no-cache \
+            composer \
+            yarn \
+            git \
+            python \
+            py-pip \
+            wget \
+            freetype \
+            libpng \
+            libjpeg-turbo \
+            freetype-dev \
+            libpng-dev \
+            libjpeg-turbo-dev && \
         docker-php-ext-configure gd \
             --with-gd \
             --with-freetype-dir=/usr/include/ \
@@ -14,12 +36,9 @@ RUN     apk update && \
         mkdir -p /www && \
     # Set environments
         sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*listen\s*=\s*127.0.0.1:9000|listen = 9000|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*listen\s*=\s*/||g" /usr/local/etc/php-fpm.conf && \
         sed -i "s|;*chdir\s*=\s*/var/www|chdir = /www|g" /usr/local/etc/php-fpm.d/www.conf && \
-        wget https://getcomposer.org/installer -O - -q | php -- --quiet && \
         pip install lastversion==0.2.4 && \
-        wget -t 3 -T 30 -nv -O "grocy.tar.gz" $(lastversion --source grocy/grocy) && \
+        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
         rm -f grocy.tar.gz && \
         cd grocy-* && \
@@ -33,19 +52,19 @@ RUN     apk update && \
         mv publication_assets/ /www/publication_assets && \
         mv services/ /www/services && \
         mv views/ /www/views && \
+        mv composer.* /www/ && \
         mv .yarnrc /www/ && \
         mv *.php /www/ && \
         mv *.json /www/ && \
-        mv composer.* /root/.composer/ && \
         mv *yarn* /www/ && \
         mv *.sh /www/ && \
     # Cleaning up
         rm -rf /var/cache/apk/*
 
 
-# run php composer.phar with -vvv for extra debug information
 RUN cd /var/www/html && \
-        php composer.phar --working-dir=/www/ -n install && \
+        COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --working-dir=/www/ \
         cp /www/config-dist.php /www/data/config.php && \
         cd /www && \
         yarn install && \
