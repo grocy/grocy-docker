@@ -2,8 +2,7 @@ FROM alpine:latest
 MAINTAINER Talmai Oliveira <to@talm.ai>
 
 RUN     apk update && \
-        apk upgrade && \
-        apk add --update \
+        apk add --no-cache \
             openssl \
             nginx && \
         mkdir -p /etc/nginx/certificates && \
