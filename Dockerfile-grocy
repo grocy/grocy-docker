@@ -64,10 +64,10 @@ RUN     apk update && \
 
 RUN cd /var/www/html && \
         COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
-        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --working-dir=/www/ \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader --working-dir=/www/ && \
         cp /www/config-dist.php /www/data/config.php && \
         cd /www && \
-        yarn install && \
+        yarn install --production && \
         mkdir /www/data/viewcache && \
         chown www-data:www-data -R /www/
 
