@@ -3,7 +3,9 @@ MAINTAINER Talmai Oliveira <to@talm.ai>
 
 RUN     apk update && \
         apk upgrade && \
-        apk add --update openssl nginx && \
+        apk add --update \
+            openssl \
+            nginx && \
         mkdir -p /etc/nginx/certificates && \
         mkdir -p /var/run/nginx && \
         mkdir -p /usr/share/nginx/html && \
