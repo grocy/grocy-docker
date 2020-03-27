@@ -10,4 +10,4 @@ pod: .grocy .grocy_nginx
 	podman pod rm -f grocy-pod || true
 	podman pod create --name grocy-pod
 	podman run --read-only --pod grocy-pod -dt --name grocy grocy:${IMAGE_COMMIT}
-	podman run ---read-only -read-only --pod grocy-pod -dt --name grocy-nginx grocy-nginx:${IMAGE_COMMIT}
+	podman run --read-only --pod grocy-pod -dt --name grocy-nginx grocy-nginx:${IMAGE_COMMIT}
