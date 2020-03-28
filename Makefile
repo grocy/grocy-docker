@@ -4,10 +4,10 @@ IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
 grocy-app:
-	buildah bud -f Dockerfile-grocy -t grocy-app:${IMAGE_TAG} --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} .
+	buildah bud -f Dockerfile-grocy -t $@:${IMAGE_TAG} --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} .
 
 grocy-nginx:
-	buildah bud -f Dockerfile-grocy-nginx -t grocy-nginx:${IMAGE_TAG} .
+	buildah bud -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
 
 pod: grocy-app grocy-nginx
 	podman pod rm -f grocy || true
