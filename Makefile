@@ -13,6 +13,6 @@ grocy-app:
 grocy-nginx:
 	podman image exists $@:${IMAGE_TAG} || buildah bud -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
 
-pod: grocy-pod grocy-app grocy-nginx
+build: grocy-pod grocy-app grocy-nginx
 	podman run --detach --name grocy-app --pod grocy --read-only grocy-app:${IMAGE_TAG}
 	podman run --detach --name grocy-nginx --pod grocy --read-only-tmpfs grocy-nginx:${IMAGE_TAG}
