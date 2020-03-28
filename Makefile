@@ -8,6 +8,6 @@ IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 
 pod: .grocy .grocy_nginx
 	podman pod rm -f grocy || true
-	podman pod create --name grocy
+	podman pod create --name grocy --publish 8000:80
 	podman run --read-only --pod grocy -dt --name grocy-app grocy-app:${IMAGE_COMMIT}
 	podman run --read-only --pod grocy -dt --name grocy-nginx grocy-nginx:${IMAGE_COMMIT}
