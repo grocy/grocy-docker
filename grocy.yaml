@@ -42,15 +42,33 @@ spec:
       seLinuxOptions: {}
     volumeMounts:
     - mountPath: /tmp
-      name: tmpfs
+      name: tmpfs-tmp
     - mountPath: /var/tmp
-      name: tmpfs
+      name: tmpfs-var-tmp
     - mountPath: /run
-      name: tmpfs
+      name: tmpfs-run
     workingDir: /www/public
   volumes:
+  # TODO: Remove: this effectively performs 'mkdir /tmp/grocy'
   - hostPath:
-      path: tmpfs
+      path: /tmp/grocy
       type: DirectoryOrCreate
     name: tmpfs
+  - hostPath:
+      path: /tmp/grocy/tmp
+      type: DirectoryOrCreate
+    name: tmpfs-tmp
+  # TODO: Remove: this effectively performs 'mkdir /tmp/grocy/var'
+  - hostPath:
+      path: /tmp/grocy/var
+      type: DirectoryOrCreate
+    name: tmpfs-var
+  - hostPath:
+      path: /tmp/grocy/var/tmp
+      type: DirectoryOrCreate
+    name: tmpfs-var-tmp
+  - hostPath:
+      path: /tmp/grocy/run
+      type: DirectoryOrCreate
+    name: tmpfs-run
 status: {}
