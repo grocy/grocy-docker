@@ -6,7 +6,7 @@ metadata:
   name: grocy
 spec:
   containers:
-  - image: localhost/grocy-nginx:a3bcfa3
+  - image: localhost/grocy-nginx
     ports:
     - containerPort: 80
       hostPort: 8000
@@ -32,7 +32,7 @@ spec:
       value: 100M
     - name: PHP_MEMORY_LIMIT
       value: 512M
-    image: localhost/grocy-app:a3bcfa3
+    image: localhost/grocy-app
     resources: {}
     securityContext:
       allowPrivilegeEscalation: true
