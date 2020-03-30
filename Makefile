@@ -12,7 +12,7 @@ grocy-pod:
 	podman pod create --name grocy --publish 8000:80
 
 grocy-app:
-	podman image exists $@:${IMAGE_TAG} || buildah bud -f Dockerfile-grocy -t $@:${IMAGE_TAG} --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} .
+	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest
 
 grocy-nginx:
