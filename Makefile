@@ -1,4 +1,4 @@
-.PHONY: grocy-app grocy-nginx
+.PHONY: build grocy-pod grocy-app grocy-nginx
 
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}", "${IMAGE_COMMIT}"))
