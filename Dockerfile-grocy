@@ -57,9 +57,7 @@ RUN     apk update && \
         mv *.php /www/ && \
         mv *.json /www/ && \
         mv *yarn* /www/ && \
-        mv *.sh /www/ && \
-    # Cleaning up
-        rm -rf /var/cache/apk/*
+        mv *.sh /www/
 
 
 RUN cd /var/www/html && \
