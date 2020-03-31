@@ -39,7 +39,8 @@ RUN     apk update && \
         pip install lastversion==0.2.4
 
 # Extract application release package
-RUN     wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
+RUN     set -o pipefail && \
+        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
         rm grocy.tar.gz && \
         mv grocy-*/* . && \
