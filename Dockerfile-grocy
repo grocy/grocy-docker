@@ -33,7 +33,6 @@ RUN     apk update && \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
         docker-php-ext-install -j${NPROC} gd && \
-    # Set environments
         sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
         pip install lastversion==0.2.4 && \
         wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
@@ -67,11 +66,8 @@ RUN cd /var/www/html && \
         mkdir /var/www/data/viewcache && \
         chown www-data:www-data -R /var/www/
 
-# Set Workdir
 WORKDIR /var/www
 
-# Expose volumes
 VOLUME ["/var/www"]
 
-# Expose ports
 EXPOSE 9000
