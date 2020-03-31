@@ -63,7 +63,6 @@ RUN cd /var/www/html && \
         COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
         cp /var/www/config-dist.php /var/www/data/config.php && \
-        cd /var/www && \
         yarn install --production && \
         mkdir /var/www/data/viewcache && \
         chown www-data:www-data -R /var/www/
