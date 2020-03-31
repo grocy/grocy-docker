@@ -56,14 +56,14 @@ RUN     apk update && \
         mv *.php /var/www/ && \
         mv *.json /var/www/ && \
         mv *yarn* /var/www/ && \
-        mv *.sh /var/www/
+        mv *.sh /var/www/ && \
+        cp /var/www/config-dist.php /var/www/data/config.php && \
+        mkdir /var/www/data/viewcache && \
+        chown www-data:www-data -R /var/www/
 
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
-        cp /var/www/config-dist.php /var/www/data/config.php && \
-        yarn install --production && \
-        mkdir /var/www/data/viewcache && \
-        chown www-data:www-data -R /var/www/
+        yarn install --production
 
 VOLUME ["/var/www"]
 
