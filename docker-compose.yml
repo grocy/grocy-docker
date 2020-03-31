@@ -1,5 +1,3 @@
-# Usage:
-# docker-compose build && docker-compose up
 version: '2.4'
 
 services:
@@ -13,8 +11,14 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    read_only: true
+    tmpfs:
+      - /run/nginx
+      - /var/lib/nginx/tmp:uid=100  # uid=100 ensures that nginx has execute permission on this dir
+    volumes:
+      - /var/log/nginx
     volumes_from:
-      - grocy
+      - grocy:ro
     container_name: grocy-nginx
 
   grocy:
@@ -25,7 +29,7 @@ services:
     expose:
       - 9000
     volumes:
-      - database:/var/www
+      - www-public:/var/www/public
     environment:
       PHP_MEMORY_LIMIT:    512M
       MAX_UPLOAD:          50M
@@ -34,4 +38,4 @@ services:
       GROCY_CULTURE: en
     container_name: grocy
 volumes:
-  database:
+  www-public:
