@@ -36,7 +36,6 @@ RUN     apk update && \
         mkdir -p /var/www && \
     # Set environments
         sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*chdir\s*=\s*/var/www|chdir = /var/www|g" /usr/local/etc/php-fpm.d/www.conf && \
         pip install lastversion==0.2.4 && \
         wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
