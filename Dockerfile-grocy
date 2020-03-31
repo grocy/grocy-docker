@@ -1,63 +1,59 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 
+# Optionally authenticate with GitHub using an API token
+#
+# This can reduce instances of download rate limiting by GitHub
+# https://developer.github.com/v3/#rate-limiting
+#
+# This value is *not* assigned to a variable using the ENV instruction,
+# since those variables are persisted in the resulting image and could leak
+# developer credentials
+# https://docs.docker.com/engine/reference/builder/#env
+ARG GITHUB_API_TOKEN
+
+WORKDIR /var/www
+
+# Install system dependencies
 RUN     apk update && \
-        apk upgrade && \
-        apk add --no-cache --update yarn git python py-pip wget freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+        apk add --no-cache \
+            composer \
+            yarn \
+            git \
+            python \
+            py-pip \
+            wget \
+            freetype \
+            libpng \
+            libjpeg-turbo \
+            freetype-dev \
+            libpng-dev \
+            libjpeg-turbo-dev && \
         docker-php-ext-configure gd \
             --with-gd \
             --with-freetype-dir=/usr/include/ \
             --with-png-dir=/usr/include/ \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-        docker-php-ext-install -j${NPROC} gd && \
-        mkdir -p /www && \
-    # Set environments
-        sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*listen\s*=\s*127.0.0.1:9000|listen = 9000|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*listen\s*=\s*/||g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*chdir\s*=\s*/var/www|chdir = /www|g" /usr/local/etc/php-fpm.d/www.conf && \
-        wget https://getcomposer.org/installer -O - -q | php -- --quiet && \
-        mkdir -p /tmp/download && \
-        wget -t 3 -T 30 -nv "https://github.com/grocy/grocy/releases/latest/download/grocy.tar.gz" && \
+        docker-php-ext-install -j${NPROC} gd
+
+# Extract application release package
+RUN     wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv "https://github.com/grocy/grocy/releases/latest/download/grocy.tar.gz" && \
         tar xzf grocy.tar.gz && \
-        rm -f grocy.tar.gz && \
-        cd grocy && \
-        mv public /www/public && \
-        mv controllers /www/controllers && \
-        mv data /www/data && \
-        mv helpers /www/helpers && \
-        mv localization/ /www/localization && \
-        mv middleware/ /www/middleware && \
-        mv migrations/ /www/migrations && \
-        mv publication_assets/ /www/publication_assets && \
-        mv services/ /www/services && \
-        mv views/ /www/views && \
-        mv .yarnrc /www/ && \
-        mv *.php /www/ && \
-        mv *.json /www/ && \
-        mv composer.* /root/.composer/ && \
-        mv *yarn* /www/ && \
-        mv *.sh /www/ && \
-    # Cleaning up
-        rm -rf /tmp/download && \
-        rm -rf /var/cache/apk/*
+        rm grocy.tar.gz && \
+        mv grocy/* . && \
+        rm -r grocy-* && \
+        mkdir data/viewcache && \
+        cp config-dist.php data/config.php && \
+        chown -R www-data .
 
+# Install application dependencies
+RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
+        yarn install --modules-folder /var/www/public/node_modules --production
 
-# run php composer.phar with -vvv for extra debug information
-RUN cd /var/www/html && \
-        php composer.phar --working-dir=/www/ -n install && \
-        cp /www/config-dist.php /www/data/config.php && \
-        cd /www && \
-        yarn install && \
-        mkdir /www/data/viewcache && \
-        chown www-data:www-data -R /www/
+VOLUME ["/var/www"]
 
-# Set Workdir
-WORKDIR /www/public
-
-# Expose volumes
-VOLUME ["/www"]
-
-# Expose ports
 EXPOSE 9000
+
+ENTRYPOINT ["php-fpm", "--nodaemonize"]

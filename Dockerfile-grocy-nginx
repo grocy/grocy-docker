@@ -2,8 +2,9 @@ FROM alpine:latest
 MAINTAINER Talmai Oliveira <to@talm.ai>
 
 RUN     apk update && \
-        apk upgrade && \
-        apk add --update openssl nginx && \
+        apk add --no-cache \
+            openssl \
+            nginx && \
         mkdir -p /etc/nginx/certificates && \
         mkdir -p /var/run/nginx && \
         mkdir -p /usr/share/nginx/html && \
@@ -14,20 +15,12 @@ RUN     apk update && \
                 -out /etc/nginx/certificates/cert.pem \
                 -days 365 \
                 -nodes \
-                -subj /CN=localhost && \
-        chown nobody /var/tmp/nginx && \
-        rm -rf /var/cache/apk/*
+                -subj /CN=localhost
 
-COPY docker_nginx/nginx.conf /etc/nginx/nginx.conf
-COPY docker_nginx/common.conf /etc/nginx/common.conf
-COPY docker_nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY docker_nginx/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
+COPY docker_nginx /etc/nginx
 
-# Expose volumes
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx"]
 
-# Expose ports
 EXPOSE 80 443
 
-# Entry point
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
