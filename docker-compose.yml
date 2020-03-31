@@ -1,5 +1,3 @@
-# Usage:
-# docker-compose build && docker-compose up
 version: '2.4'
 
 services:
