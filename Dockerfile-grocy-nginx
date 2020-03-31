@@ -18,8 +18,6 @@ RUN     apk update && \
 
 COPY docker_nginx /etc/nginx
 
-VOLUME ["/etc/nginx/conf.d", "/var/log/nginx"]
-
 EXPOSE 80 443
 
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
