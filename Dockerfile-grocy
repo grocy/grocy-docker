@@ -12,6 +12,8 @@ LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
+WORKDIR /var/www
+
 RUN     apk update && \
         apk add --no-cache \
             composer \
@@ -65,8 +67,6 @@ RUN cd /var/www/html && \
         yarn install --production && \
         mkdir /var/www/data/viewcache && \
         chown www-data:www-data -R /var/www/
-
-WORKDIR /var/www
 
 VOLUME ["/var/www"]
 
