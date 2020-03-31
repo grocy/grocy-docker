@@ -17,10 +17,7 @@ RUN     apk update && \
                 -nodes \
                 -subj /CN=localhost
 
-COPY docker_nginx/nginx.conf /etc/nginx/nginx.conf
-COPY docker_nginx/common.conf /etc/nginx/common.conf
-COPY docker_nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY docker_nginx/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
+COPY docker_nginx /etc/nginx
 
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx"]
 
