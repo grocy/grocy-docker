@@ -14,7 +14,7 @@ services:
     read_only: true
     tmpfs:
       - /run/nginx
-      - /var/lib/nginx/tmp:uid=100
+      - /var/lib/nginx/tmp:uid=100  # uid=100 ensures that nginx has execute permission on this dir
     volumes:
       - /var/log/nginx
     volumes_from:
