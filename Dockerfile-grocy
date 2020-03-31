@@ -42,7 +42,7 @@ RUN     set -o pipefail && \
         wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv "https://github.com/grocy/grocy/releases/latest/download/grocy.tar.gz" && \
         tar xzf grocy.tar.gz && \
         rm grocy.tar.gz && \
-        mv grocy/* . && \
+        mv grocy-*/* . && \
         rm -r grocy-* && \
         mkdir data/viewcache && \
         cp config-dist.php data/config.php && \
