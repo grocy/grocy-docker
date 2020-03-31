@@ -58,8 +58,7 @@ RUN     apk update && \
         mv *yarn* /var/www/ && \
         mv *.sh /var/www/
 
-RUN cd /var/www/html && \
-        COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
+RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
         cp /var/www/config-dist.php /var/www/data/config.php && \
         yarn install --production && \
