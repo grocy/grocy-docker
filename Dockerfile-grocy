@@ -1,6 +1,8 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 
+ARG GROCY_VERSION=v2.6.1
+
 # Optionally authenticate with GitHub using an API token
 #
 # This can reduce instances of download rate limiting by GitHub
@@ -35,14 +37,13 @@ RUN     apk update && \
             --with-png-dir=/usr/include/ \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-        docker-php-ext-install -j${NPROC} gd && \
-        pip install lastversion==0.2.4
+        docker-php-ext-install -j${NPROC} gd
 
 # Extract application release package
 RUN     set -o pipefail && \
-        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
-        tar xzf grocy.tar.gz && \
-        rm grocy.tar.gz && \
+        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv "https://github.com/grocy/grocy/archive/${GROCY_VERSION}.tar.gz" && \
+        tar xzf "${GROCY_VERSION}.tar.gz" && \
+        rm "${GROCY_VERSION}.tar.gz" && \
         mv grocy-*/* . && \
         rm -r grocy-* && \
         mkdir data/viewcache && \
