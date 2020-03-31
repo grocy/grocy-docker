@@ -19,7 +19,7 @@ services:
       - /var/lib/nginx/tmp:uid=100
       - /var/log/nginx
     volumes_from:
-      - grocy
+      - grocy:ro
     container_name: grocy-nginx
 
   grocy:
