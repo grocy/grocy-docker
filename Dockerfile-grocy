@@ -68,7 +68,7 @@ RUN cd /var/www/html && \
         chown www-data:www-data -R /var/www/
 
 # Set Workdir
-WORKDIR /var/www/public
+WORKDIR /var/www
 
 # Expose volumes
 VOLUME ["/var/www"]
