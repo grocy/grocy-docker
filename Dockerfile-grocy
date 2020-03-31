@@ -33,7 +33,6 @@ RUN     apk update && \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
         docker-php-ext-install -j${NPROC} gd && \
-        mkdir -p /var/www && \
     # Set environments
         sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
         pip install lastversion==0.2.4 && \
