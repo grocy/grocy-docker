@@ -12,6 +12,9 @@ LABEL maintainer="Talmai Oliveira <to@talm.ai>"
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
+WORKDIR /var/www
+
+# Install system dependencies
 RUN     apk update && \
         apk add --no-cache \
             composer \
@@ -33,47 +36,25 @@ RUN     apk update && \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
         docker-php-ext-install -j${NPROC} gd && \
-        mkdir -p /www && \
-    # Set environments
-        sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*chdir\s*=\s*/var/www|chdir = /www|g" /usr/local/etc/php-fpm.d/www.conf && \
-        pip install lastversion==0.2.4 && \
-        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
+        pip install lastversion==0.2.4
+
+# Extract application release package
+RUN     wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
-        rm -f grocy.tar.gz && \
-        cd grocy-* && \
-        mv public /www/public && \
-        mv controllers /www/controllers && \
-        mv data /www/data && \
-        mv helpers /www/helpers && \
-        mv localization/ /www/localization && \
-        mv middleware/ /www/middleware && \
-        mv migrations/ /www/migrations && \
-        mv publication_assets/ /www/publication_assets && \
-        mv services/ /www/services && \
-        mv views/ /www/views && \
-        mv composer.* /www/ && \
-        mv .yarnrc /www/ && \
-        mv *.php /www/ && \
-        mv *.json /www/ && \
-        mv *yarn* /www/ && \
-        mv *.sh /www/
+        rm grocy.tar.gz && \
+        mv grocy-*/* . && \
+        rm -r grocy-* && \
+        mkdir data/viewcache && \
+        cp config-dist.php data/config.php && \
+        chown -R www-data .
 
+# Install application dependencies
+RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
+        yarn install --modules-folder /var/www/public/node_modules --production
 
-RUN cd /var/www/html && \
-        COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
-        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader --working-dir=/www/ && \
-        cp /www/config-dist.php /www/data/config.php && \
-        cd /www && \
-        yarn install --production && \
-        mkdir /www/data/viewcache && \
-        chown www-data:www-data -R /www/
+VOLUME ["/var/www"]
 
-# Set Workdir
-WORKDIR /www/public
-
-# Expose volumes
-VOLUME ["/www"]
-
-# Expose ports
 EXPOSE 9000
+
+ENTRYPOINT ["php-fpm", "--nodaemonize"]
