@@ -44,7 +44,7 @@ RUN     apk update && \
         rm -r grocy-* && \
         mkdir data/viewcache && \
         cp config-dist.php data/config.php && \
-        chown -R www-data:www-data .
+        chown -R www-data .
 
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
