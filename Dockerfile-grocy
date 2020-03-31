@@ -14,16 +14,12 @@ ARG GROCY_VERSION=v2.6.1
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
-WORKDIR /var/www
-
 # Install system dependencies
 RUN     apk update && \
         apk add --no-cache \
             composer \
             yarn \
             git \
-            python \
-            py-pip \
             wget \
             freetype \
             libpng \
@@ -37,7 +33,11 @@ RUN     apk update && \
             --with-png-dir=/usr/include/ \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-        docker-php-ext-install -j${NPROC} gd
+        docker-php-ext-install -j${NPROC} gd && \
+        chown -R www-data /var/www
+
+USER www-data
+WORKDIR /var/www
 
 # Extract application release package
 RUN     set -o pipefail && \
@@ -47,8 +47,7 @@ RUN     set -o pipefail && \
         mv grocy-*/* . && \
         rm -r grocy-* && \
         mkdir data/viewcache && \
-        cp config-dist.php data/config.php && \
-        chown -R www-data .
+        cp config-dist.php data/config.php
 
 # Install application dependencies
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
