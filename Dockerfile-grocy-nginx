@@ -7,7 +7,6 @@ RUN     apk update && \
             nginx && \
         mkdir -p /etc/nginx/certificates && \
         mkdir -p /var/run/nginx && \
-        mkdir -p /usr/share/nginx/html && \
         openssl req \
                 -x509 \
                 -newkey rsa:2048 \
@@ -18,8 +17,6 @@ RUN     apk update && \
                 -subj /CN=localhost
 
 COPY docker_nginx /etc/nginx
-
-VOLUME ["/etc/nginx/conf.d", "/var/log/nginx"]
 
 EXPOSE 80 443
 
