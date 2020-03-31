@@ -13,6 +13,10 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    tmpfs:
+      - /run/nginx
+      - /var/lib/nginx/tmp:uid=100
+      - /var/log/nginx
     volumes_from:
       - grocy
     container_name: grocy-nginx
