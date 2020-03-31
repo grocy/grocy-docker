@@ -33,47 +33,47 @@ RUN     apk update && \
             --with-jpeg-dir=/usr/include/ && \
         NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
         docker-php-ext-install -j${NPROC} gd && \
-        mkdir -p /www && \
+        mkdir -p /var/www && \
     # Set environments
         sed -i "s|;*daemonize\s*=\s*yes|daemonize = no|g" /usr/local/etc/php-fpm.conf && \
-        sed -i "s|;*chdir\s*=\s*/var/www|chdir = /www|g" /usr/local/etc/php-fpm.d/www.conf && \
+        sed -i "s|;*chdir\s*=\s*/var/www|chdir = /var/www|g" /usr/local/etc/php-fpm.d/www.conf && \
         pip install lastversion==0.2.4 && \
         wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv -O "grocy.tar.gz" $(GITHUB_API_TOKEN=${GITHUB_API_TOKEN} lastversion --source grocy/grocy) && \
         tar xzf grocy.tar.gz && \
         rm -f grocy.tar.gz && \
         cd grocy-* && \
-        mv public /www/public && \
-        mv controllers /www/controllers && \
-        mv data /www/data && \
-        mv helpers /www/helpers && \
-        mv localization/ /www/localization && \
-        mv middleware/ /www/middleware && \
-        mv migrations/ /www/migrations && \
-        mv publication_assets/ /www/publication_assets && \
-        mv services/ /www/services && \
-        mv views/ /www/views && \
-        mv composer.* /www/ && \
-        mv .yarnrc /www/ && \
-        mv *.php /www/ && \
-        mv *.json /www/ && \
-        mv *yarn* /www/ && \
-        mv *.sh /www/
+        mv public /var/www/public && \
+        mv controllers /var/www/controllers && \
+        mv data /var/www/data && \
+        mv helpers /var/www/helpers && \
+        mv localization/ /var/www/localization && \
+        mv middleware/ /var/www/middleware && \
+        mv migrations/ /var/www/migrations && \
+        mv publication_assets/ /var/www/publication_assets && \
+        mv services/ /var/www/services && \
+        mv views/ /var/www/views && \
+        mv composer.* /var/www/ && \
+        mv .yarnrc /var/www/ && \
+        mv *.php /var/www/ && \
+        mv *.json /var/www/ && \
+        mv *yarn* /var/www/ && \
+        mv *.sh /var/www/
 
 
 RUN cd /var/www/html && \
         COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
-        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader --working-dir=/www/ && \
-        cp /www/config-dist.php /www/data/config.php && \
-        cd /www && \
+        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader --working-dir=/var/www/ && \
+        cp /var/www/config-dist.php /var/www/data/config.php && \
+        cd /var/www && \
         yarn install --production && \
-        mkdir /www/data/viewcache && \
-        chown www-data:www-data -R /www/
+        mkdir /var/www/data/viewcache && \
+        chown www-data:www-data -R /var/www/
 
 # Set Workdir
-WORKDIR /www/public
+WORKDIR /var/www/public
 
 # Expose volumes
-VOLUME ["/www"]
+VOLUME ["/var/www"]
 
 # Expose ports
 EXPOSE 9000
