@@ -15,6 +15,7 @@ services:
     tmpfs:
       - /run/nginx
       - /var/lib/nginx/tmp:uid=100
+    volumes:
       - /var/log/nginx
     volumes_from:
       - grocy:ro
