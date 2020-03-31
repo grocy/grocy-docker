@@ -13,6 +13,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    read_only: true
     tmpfs:
       - /run/nginx
       - /var/lib/nginx/tmp:uid=100
