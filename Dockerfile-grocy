@@ -20,8 +20,6 @@ RUN     apk update && \
             composer \
             yarn \
             git \
-            python \
-            py-pip \
             wget \
             freetype \
             libpng \
