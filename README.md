@@ -54,7 +54,7 @@ docker-compose build
 Note: if you experience build failures as a result of GitHub API rate limiting, you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
 
 ```
-docker-compose --build-arg GITHUB_API_TOKEN="your-token-here"
+docker-compose build --build-arg GITHUB_API_TOKEN="your-token-here"
 ```
 
 ## Additional Information
