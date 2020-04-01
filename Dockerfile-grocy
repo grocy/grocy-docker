@@ -1,5 +1,5 @@
 FROM php:7.2-fpm-alpine
-LABEL maintainer="Talmai Oliveira <to@talm.ai>"
+LABEL maintainer "James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION=v2.6.1
 

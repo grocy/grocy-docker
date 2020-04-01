@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER Talmai Oliveira <to@talm.ai>
+LABEL maintainer "James Addison <jay@jp-hosting.net>"
 
 RUN     apk update && \
         apk add --no-cache \
