@@ -27,6 +27,9 @@ services:
       dockerfile: Dockerfile-grocy
     expose:
       - 9000
+    read_only: true
+    tmpfs:
+      - /tmp
     volumes:
       - database:/var/www/data
       - www-public:/var/www/public
