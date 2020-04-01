@@ -13,7 +13,6 @@ services:
       - '443:8443'
     read_only: true
     tmpfs:
-      - /run/nginx
       - /tmp
     volumes:
       - /var/log/nginx
