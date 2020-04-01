@@ -13,9 +13,6 @@ RUN     apk update && \
                 -days 365 \
                 -nodes \
                 -subj /CN=localhost && \
-        chown -R root:www-data /etc/ssl/private && \
-        chmod -R o-rwx /etc/ssl/private && \
-        chmod -R g+rx /etc/ssl/private && \
         chown -R nginx /var/log/nginx
 
 COPY docker_nginx /etc/nginx
