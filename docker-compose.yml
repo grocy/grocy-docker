@@ -29,6 +29,7 @@ services:
     expose:
       - 9000
     volumes:
+      - database:/var/www/data
       - www-public:/var/www/public
     environment:
       PHP_MEMORY_LIMIT:    512M
@@ -38,4 +39,5 @@ services:
       GROCY_CULTURE: en
     container_name: grocy
 volumes:
+  database:
   www-public:
