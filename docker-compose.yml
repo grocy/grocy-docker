@@ -13,8 +13,7 @@ services:
       - '443:8443'
     read_only: true
     tmpfs:
-      - /run/nginx
-      - /var/lib/nginx/tmp
+      - /tmp
     volumes:
       - /var/log/nginx
       - www-public:/var/www/public:ro
