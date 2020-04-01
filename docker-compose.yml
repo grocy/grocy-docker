@@ -9,12 +9,11 @@ services:
     depends_on:
       - grocy
     ports:
-      - '80:80'
-      - '443:443'
+      - '80:8080'
+      - '443:8443'
     read_only: true
     tmpfs:
-      - /run/nginx
-      - /var/lib/nginx/tmp:uid=100  # uid=100 ensures that nginx has execute permission on this dir
+      - /tmp
     volumes:
       - /var/log/nginx
       - www-public:/var/www/public:ro
@@ -26,7 +25,10 @@ services:
       context: .
       dockerfile: Dockerfile-grocy
     expose:
-      - 9000
+      - '9000'
+    read_only: true
+    tmpfs:
+      - /tmp
     volumes:
       - database:/var/www/data
       - www-public:/var/www/public

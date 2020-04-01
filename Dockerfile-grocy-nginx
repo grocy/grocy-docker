@@ -5,20 +5,24 @@ RUN     apk update && \
         apk add --no-cache \
             openssl \
             nginx && \
-        mkdir -p /etc/nginx/certificates && \
         openssl req \
                 -x509 \
                 -newkey rsa:2048 \
-                -keyout /etc/nginx/certificates/key.pem \
-                -out /etc/nginx/certificates/cert.pem \
+                -keyout /etc/ssl/private/grocy-nginx.key \
+                -out /etc/ssl/private/grocy-nginx.crt \
                 -days 365 \
                 -nodes \
-                -subj /CN=localhost
+                -subj /CN=localhost && \
+        chown nginx /etc/ssl/private/grocy-nginx.key && \
+        chown nginx /etc/ssl/private/grocy-nginx.crt && \
+        chown -R nginx /var/log/nginx
 
 COPY docker_nginx /etc/nginx
 
 VOLUME ["/var/log/nginx"]
 
-EXPOSE 80 443
+EXPOSE 8080 8443
+
+USER nginx
 
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
