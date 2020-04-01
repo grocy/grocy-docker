@@ -6,7 +6,7 @@ IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), 
 build: grocy-pod grocy-app grocy-nginx
 	podman run \
         --detach \
-        --env-file grocy-app.env \
+        --env-file grocy.env \
         --name grocy-app \
         --pod grocy \
         --read-only \
