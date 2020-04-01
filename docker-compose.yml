@@ -9,16 +9,15 @@ services:
     depends_on:
       - grocy
     ports:
-      - '80:8080'
-      - '443:8443'
+      - '80:80'
+      - '443:443'
     read_only: true
     tmpfs:
       - /run/nginx
       - /var/lib/nginx/tmp:uid=100  # uid=100 ensures that nginx has execute permission on this dir
     volumes:
       - /var/log/nginx
-    volumes_from:
-      - grocy:ro
+      - www-public:/var/www/public:ro
     container_name: grocy-nginx
 
   grocy:
@@ -29,6 +28,7 @@ services:
     expose:
       - 9000
     volumes:
+      - database:/var/www/data
       - www-public:/var/www/public
     environment:
       PHP_MEMORY_LIMIT:    512M
@@ -38,4 +38,5 @@ services:
       GROCY_CULTURE: en
     container_name: grocy
 volumes:
+  database:
   www-public:
