@@ -13,7 +13,9 @@ RUN     apk update && \
                 -out /etc/nginx/certificates/cert.pem \
                 -days 365 \
                 -nodes \
-                -subj /CN=localhost
+                -subj /CN=localhost && \
+        chmod a=r /etc/nginx/certificates/key.pem && \
+        chmod a=r /etc/nginx/certificates/cert.pem
 
 RUN     chmod go+rx /var/lib/nginx/tmp
 
