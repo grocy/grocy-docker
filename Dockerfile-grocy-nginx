@@ -15,7 +15,8 @@ RUN     apk update && \
                 -nodes \
                 -subj /CN=localhost && \
         chmod a=r /etc/nginx/certificates/key.pem && \
-        chmod a=r /etc/nginx/certificates/cert.pem
+        chmod a=r /etc/nginx/certificates/cert.pem && \
+        chown -R nginx /var/log/nginx
 
 COPY docker_nginx /etc/nginx
 
