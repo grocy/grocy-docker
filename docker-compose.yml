@@ -32,12 +32,8 @@ services:
     volumes:
       - database:/var/www/data
       - www-public:/var/www/public
-    environment:
-      PHP_MEMORY_LIMIT:    512M
-      MAX_UPLOAD:          50M
-      PHP_MAX_FILE_UPLOAD: 200
-      PHP_MAX_POST:        100M
-      GROCY_CULTURE: en
+    env_file:
+      - grocy.env
     container_name: grocy
 volumes:
   database:
