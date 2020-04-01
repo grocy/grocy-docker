@@ -1,7 +1,5 @@
 .git
 .vscode
-.gitignore
-build.bat
+.DS_store
 Dockerfile-grocy
 Dockerfile-grocy-nginx
-.DS_store
