@@ -15,6 +15,8 @@ RUN     apk update && \
                 -nodes \
                 -subj /CN=localhost
 
+RUN     chmod go+rx /var/lib/nginx/tmp
+
 COPY docker_nginx /etc/nginx
 
 VOLUME ["/var/log/nginx"]
