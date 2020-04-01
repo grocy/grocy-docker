@@ -18,8 +18,6 @@ build: grocy-pod grocy-app grocy-nginx
         --pod grocy \
         --read-only \
         --tmpfs /tmp \
-        --tmpfs /run/nginx \
-        --tmpfs /var/lib/nginx/tmp \
         --volumes-from grocy-app:ro \
         grocy-nginx:${IMAGE_TAG}
 
