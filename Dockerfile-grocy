@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM alpine:latest
 LABEL maintainer "James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION=v2.6.1
@@ -14,6 +14,15 @@ ARG GROCY_VERSION=v2.6.1
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
+# ensure www-data user exists
+RUN set -eux; \
+	addgroup -g 82 -S www-data; \
+	adduser -u 82 -D -S -G www-data www-data
+# 82 is the standard uid/gid for "www-data" in Alpine
+# https://git.alpinelinux.org/aports/tree/main/apache2/apache2.pre-install?h=3.9-stable
+# https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
+# https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
+
 # Install system dependencies
 RUN     apk update && \
         apk add --no-cache \
@@ -21,20 +30,18 @@ RUN     apk update && \
             yarn \
             git \
             wget \
-            freetype \
-            libpng \
-            libjpeg-turbo \
-            freetype-dev \
-            libpng-dev \
-            libjpeg-turbo-dev && \
-        docker-php-ext-configure gd \
-            --with-gd \
-            --with-freetype-dir=/usr/include/ \
-            --with-png-dir=/usr/include/ \
-            --with-jpeg-dir=/usr/include/ && \
-        NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-        docker-php-ext-install -j${NPROC} gd && \
+            php7-fpm \
+            php7-fileinfo \
+            php7-gd \
+            php7-pdo_sqlite \
+            php7-simplexml \
+            php7-tokenizer && \
+        mkdir -p /var/log/php7 && \
+        chown -R www-data /var/log/php7 && \
+        mkdir -p /var/www && \
         chown -R www-data /var/www
+
+COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
 USER www-data
 WORKDIR /var/www
@@ -58,4 +65,4 @@ VOLUME ["/var/www/data", "/var/www/public"]
 
 EXPOSE 9000
 
-ENTRYPOINT ["php-fpm", "--nodaemonize"]
+ENTRYPOINT ["/usr/sbin/php-fpm7", "--nodaemonize"]
