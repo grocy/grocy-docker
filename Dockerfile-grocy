@@ -1,5 +1,5 @@
 FROM alpine:latest
-LABEL maintainer "James Addison <jay@jp-hosting.net>"
+LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION=v2.6.1
 
