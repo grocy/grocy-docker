@@ -11,6 +11,7 @@ build: pod grocy nginx
         --pod grocy-pod \
         --read-only \
         --volume database:/var/www/data \
+        --volume www-public:/var/www/public:ro \
         grocy:${IMAGE_TAG}
 	podman run \
         --detach \
