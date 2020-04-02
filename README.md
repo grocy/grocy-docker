@@ -25,8 +25,8 @@ Note: if you have not pulled any of the images from the repository, when you do 
 ### To pull the latest images to your machine:
 
 ```
-docker pull grocy/grocy-docker:nginx
-docker pull grocy/grocy-docker:grocy
+docker pull grocy/nginx
+docker pull grocy/grocy
 ```
 
 Or just `docker-compose pull`.
