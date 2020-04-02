@@ -62,7 +62,6 @@ RUN     find /var/www/public/node_modules \
             -and -not -name '*.ttf' \
             -and -not -name '*.woff' \
             -and -not -name '*.woff2' \
-            -and -not -name 'search_plus_index.json' \
             -exec rm {} \; && \
         find /var/www/public/node_modules \
             -depth \
