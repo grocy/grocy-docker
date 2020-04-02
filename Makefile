@@ -1,33 +1,33 @@
-.PHONY: build grocy-pod grocy-app grocy-nginx
+.PHONY: build pod grocy nginx
 
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
-build: grocy-pod grocy-app grocy-nginx
+build: pod grocy nginx
 	podman run \
         --detach \
         --env-file grocy.env \
-        --name grocy-app \
+        --name grocy \
         --pod grocy \
         --read-only-tmpfs \
         --volume database:/var/www/data \
-        grocy-app:${IMAGE_TAG}
+        grocy:${IMAGE_TAG}
 	podman run \
         --detach \
-        --name grocy-nginx \
+        --name nginx \
         --pod grocy \
         --read-only-tmpfs \
-        --volumes-from grocy-app:ro \
-        grocy-nginx:${IMAGE_TAG}
+        --volumes-from grocy:ro \
+        nginx:${IMAGE_TAG}
 
-grocy-pod:
+pod:
 	podman pod rm -f grocy || true
 	podman pod create --name grocy --publish 8080
 
-grocy-app:
-	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
+grocy:
+	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest
 
-grocy-nginx:
+nginx:
 	podman image exists $@:${IMAGE_TAG} || buildah bud -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest
