@@ -62,14 +62,16 @@ RUN     find /var/www/public/node_modules \
             -and -not -name 'search_plus_index.json' \
             -exec rm {} \; && \
         find /var/www/public/node_modules \
+            -depth \
             -type d \
             -name 'src' \
             -and -not -path '*/gettext-translator/src' \
-            -exec rm {} \; && \
+            -exec rm -rf {} \; && \
         find /var/www/public/node_modules \
+            -depth \
             -type d \
             -name 'docs' \
-            -exec rm {} \;
+            -exec rm -rf {} \;
 
 VOLUME ["/var/www/data", "/var/www/public"]
 
