@@ -9,14 +9,15 @@ build: pod grocy nginx
         --env-file grocy.env \
         --name grocy \
         --pod grocy-pod \
-        --read-only-tmpfs \
+        --read-only \
         --volume database:/var/www/data \
         grocy:${IMAGE_TAG}
 	podman run \
         --detach \
         --name nginx \
         --pod grocy-pod \
-        --read-only-tmpfs \
+        --read-only \
+        --tmpfs /tmp \
         --volumes-from grocy:ro \
         nginx:${IMAGE_TAG}
 
