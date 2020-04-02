@@ -54,6 +54,18 @@ RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
         yarn install --modules-folder /var/www/public/node_modules --production
 
+# Prune vendored content
+RUN     find /var/www/public/node_modules \
+            -type f \
+            -not -name '*.js' \
+            -and -not -name '*.css' \
+            -and -not -name 'search_plus_index.json' \
+            -exec rm {} \; && \
+        find /var/www/public/node_modules \
+            -type d \
+            -name 'docs' \
+            -exec rm {} \;
+
 VOLUME ["/var/www/data", "/var/www/public"]
 
 EXPOSE 9000
