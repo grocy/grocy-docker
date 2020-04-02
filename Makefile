@@ -19,7 +19,7 @@ build: pod grocy nginx
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
-        --volumes-from grocy:ro \
+        --volume www-public:/var/www/public:ro \
         nginx:${IMAGE_TAG}
 
 pod:
