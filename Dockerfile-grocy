@@ -63,6 +63,11 @@ RUN     find /var/www/public/node_modules \
             -exec rm {} \; && \
         find /var/www/public/node_modules \
             -type d \
+            -name 'src' \
+            -and -not -path '*/gettext-translator/src' \
+            -exec rm {} \; && \
+        find /var/www/public/node_modules \
+            -type d \
             -name 'docs' \
             -exec rm {} \;
 
