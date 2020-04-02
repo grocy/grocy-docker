@@ -31,7 +31,7 @@ services:
       - /tmp
     volumes:
       - database:/var/www/data
-      - www-public:/var/www/public
+      - www-public:/var/www/public:ro
     env_file:
       - grocy.env
     container_name: grocy
