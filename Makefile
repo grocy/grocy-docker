@@ -8,21 +8,21 @@ build: pod grocy nginx
         --detach \
         --env-file grocy.env \
         --name grocy \
-        --pod grocy \
+        --pod grocy-pod \
         --read-only-tmpfs \
         --volume database:/var/www/data \
         grocy:${IMAGE_TAG}
 	podman run \
         --detach \
         --name nginx \
-        --pod grocy \
+        --pod grocy-pod \
         --read-only-tmpfs \
         --volumes-from grocy:ro \
         nginx:${IMAGE_TAG}
 
 pod:
-	podman pod rm -f grocy || true
-	podman pod create --name grocy --publish 8080
+	podman pod rm -f grocy-pod || true
+	podman pod create --name grocy-pod --publish 8080
 
 grocy:
 	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
