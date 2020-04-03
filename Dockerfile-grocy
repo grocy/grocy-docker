@@ -52,7 +52,8 @@ RUN     set -o pipefail && \
 # Install application dependencies
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
-        yarn install --modules-folder /var/www/public/node_modules --production
+        yarn install --modules-folder /var/www/public/node_modules --production && \
+        yarn cache clean
 
 VOLUME ["/var/www/data", "/var/www/public"]
 
