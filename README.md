@@ -35,7 +35,7 @@ Some key settings are included in [grocy.env](grocy.env). The included version o
 
 #### Production Mode
 
-To run the container in production mode, set `GROCY_MODE=production` in your environment and bring up the application:
+To run the container in production mode, override the `GROCY_MODE` environment variable at application run-time:
 
 ```sh
 GROCY_MODE=production docker-compose up
