@@ -12,8 +12,8 @@ build: pod grocy nginx
         --pod grocy-pod \
         --read-only \
         --volume /var/log/php7 \
-        --volume database:/var/www/data \
-        --volume www-public:/var/www/public:ro \
+        --volume app-db:/var/www/data \
+        --volume www-static:/var/www/public:ro \
         grocy:${IMAGE_TAG}
 	podman run \
         --detach \
@@ -22,7 +22,7 @@ build: pod grocy nginx
         --read-only \
         --tmpfs /tmp \
         --volume /var/log/nginx \
-        --volume www-public:/var/www/public:ro \
+        --volume www-static:/var/www/public:ro \
         nginx:${IMAGE_TAG}
 
 pod:
