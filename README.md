@@ -43,6 +43,8 @@ GROCY_MODE=demo docker-compose up
 
 ### Build
 
+#### Docker Images
+
 ```sh
 docker-compose build
 ```
@@ -52,3 +54,7 @@ Note: if you experience build failures as a result of GitHub API [rate limiting]
 ```sh
 GITHUB_API_TOKEN='your-token-here' docker-compose build
 ```
+
+#### OCI Images
+
+Optional support for building [opencontainer](https://www.opencontainers.org/) images is available via the [Makefile](Makefile) provided.
