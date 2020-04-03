@@ -10,6 +10,7 @@ build: pod grocy nginx
         --name grocy \
         --pod grocy-pod \
         --read-only \
+        --volume /var/log/php7 \
         --volume database:/var/www/data \
         --volume www-public:/var/www/public:ro \
         grocy:${IMAGE_TAG}
@@ -19,6 +20,7 @@ build: pod grocy nginx
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
+        --volume /var/log/nginx \
         --volume www-public:/var/www/public:ro \
         nginx:${IMAGE_TAG}
 
