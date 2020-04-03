@@ -1,63 +1,54 @@
-# Grocy on Docker
+# grocy-docker
 
-ERP beyond your fridge - now containerized! This is the docker repo of [grocy](https://github.com/grocy/grocy).
+ERP beyond your fridge - now containerized!
+
+This repository includes container build infrastructure for [grocy](https://github.com/grocy/grocy).
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
 [![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
 
-## Install Docker
+## Prerequisites
 
 Follow [these instructions](https://docs.docker.com/engine/installation/) to get Docker running on your server.
 
-## Available on Docker Hub (prebuilt) or built from source
+## Quickstart: Run grocy-docker from Docker Hub
 
-### To run using docker just do the following:
+To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/r/grocy/grocy-docker), run the following commands:
 
-```
-> docker-compose pull # if you haven't pulled or built
-> docker-compose up
-```
-
-And grocy should be accessible via `http(s)://localhost/`. The https option will work. However, since the certificate is self-signed, most browsers will complain.
-
-Note: if you have not pulled any of the images from the repository, when you do an `up`, it will attempt to build from scratch!
-
-### To pull the latest images to your machine:
-
-```
-docker pull grocy/nginx
-docker pull grocy/grocy
+```sh
+docker-compose pull
+docker-compose up
 ```
 
-Or just `docker-compose pull`.
+The grocy application should now be accessible on your host:
 
-### Environment variables:
+ - [HTTP](http://localhost)
+ - [HTTPS](https://localhost)
 
-As of grocy v1.24.1, grocy will read configuration settings from environment variables as long as they are prefixed by `GROCY_`. Some key items are included in  `grocy.env`. The shipped version of this file sets `GROCY_MODE=demo`, which will load some sample entries into the database, and doesn't require authentication. Set `GROCY_MODE=production` to put the application in production mode and require login. 
+Since the images contain self-signed certificates, your browser may display a warning when visiting the HTTPS URL.
 
-For example, to change the language from English to French, you can modify
+### Configuration
 
+The grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
+
+Some key settings are included in [grocy.env](grocy.env). The included version of this file sets `GROCY_MODE=demo`; this disables authentication and loads sample database entries.
+
+#### Production Mode
+
+To run the container in production mode, set `GROCY_MODE=production` in your environment and bring up the application:
+
+```sh
+GROCY_MODE=production docker-compose up
 ```
-GROCY_CULTURE: en
-```
 
-to
+### Build
 
-```
-GROCY_CULTURE: fr
-```
-
-### To build from scratch
-
-```
+```sh
 docker-compose build
 ```
 
-Note: if you experience build failures as a result of GitHub API rate limiting, you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
+Note: if you experience build failures as a result of GitHub API [rate limiting](https://developer.github.com/v3/#rate-limiting), you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
 
+```sh
+GITHUB_API_TOKEN='your-token-here' docker-compose build
 ```
-docker-compose build --build-arg GITHUB_API_TOKEN="your-token-here"
-```
-
-## License
-The MIT License (MIT)
