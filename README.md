@@ -33,12 +33,12 @@ The grocy application reads configuration settings from environment variables pr
 
 Some key settings are included in [grocy.env](grocy.env). The included version of this file sets `GROCY_MODE=demo`; this disables authentication and creates sample database content.
 
-#### Production Mode
+#### Demo Mode
 
-To run the container in production mode, override the `GROCY_MODE` environment variable at application run-time:
+To run the container in demo mode, override the `GROCY_MODE` environment variable at application run-time:
 
 ```sh
-GROCY_MODE=production docker-compose up
+GROCY_MODE=demo docker-compose up
 ```
 
 ### Build
