@@ -22,8 +22,8 @@ docker-compose up
 
 The grocy application should now be accessible on your host:
 
- - [HTTP](http://localhost)
- - [HTTPS](https://localhost)
+ - [http://localhost](http://localhost)
+ - [https://localhost](https://localhost)
 
 Since the images contain self-signed certificates, your browser may display a warning when visiting the HTTPS URL.
 
