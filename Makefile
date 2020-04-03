@@ -16,6 +16,7 @@ build: pod grocy nginx
         --volume www-static:/var/www/public:ro \
         grocy:${IMAGE_TAG}
 	podman run \
+        --add-host grocy:127.0.0.1 \
         --detach \
         --name nginx \
         --pod grocy-pod \
