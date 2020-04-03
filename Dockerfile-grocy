@@ -1,7 +1,7 @@
 FROM alpine:latest
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
-ARG GROCY_VERSION=v2.6.1
+ARG GROCY_VERSION
 
 # Optionally authenticate with GitHub using an API token
 #

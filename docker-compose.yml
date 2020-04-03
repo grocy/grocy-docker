@@ -1,8 +1,9 @@
 version: '2.4'
 
 services:
-  grocy-nginx:
-    image: grocy/grocy-docker:nginx
+
+  nginx:
+    image: "grocy/nginx:v2.6.2"
     build:
       context: .
       dockerfile: Dockerfile-grocy-nginx
@@ -16,12 +17,15 @@ services:
       - /tmp
     volumes:
       - /var/log/nginx
-      - www-public:/var/www/public:ro
-    container_name: grocy-nginx
+      - www-static:/var/www/public:ro
+    container_name: nginx
 
   grocy:
-    image: grocy/grocy-docker:grocy
+    image: "grocy/grocy:v2.6.2"
     build:
+      args:
+        GITHUB_API_TOKEN: "${GITHUB_API_TOKEN}"
+        GROCY_VERSION: v2.6.2
       context: .
       dockerfile: Dockerfile-grocy
     expose:
@@ -31,11 +35,12 @@ services:
       - /tmp
     volumes:
       - /var/log/php7
-      - database:/var/www/data
-      - www-public:/var/www/public:ro
+      - app-db:/var/www/data
+      - www-static:/var/www/public:ro
     env_file:
       - grocy.env
     container_name: grocy
+
 volumes:
-  database:
-  www-public:
+  app-db:
+  www-static:
