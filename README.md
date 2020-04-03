@@ -9,7 +9,7 @@ This repository includes container build infrastructure for [grocy](https://gith
 
 ## Prerequisites
 
-Follow [these instructions](https://docs.docker.com/engine/installation/) to get Docker running on your server.
+Follow [these instructions](https://docs.docker.com/install/) to get Docker running on your server.
 
 ## Quickstart: Run grocy-docker from Docker Hub
 
