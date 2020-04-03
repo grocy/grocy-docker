@@ -20,7 +20,7 @@ docker-compose pull
 docker-compose up
 ```
 
-The grocy application should now be accessible on your host:
+The grocy application should now be accessible locally to the server:
 
  - [http://localhost](http://localhost)
  - [https://localhost](https://localhost)
