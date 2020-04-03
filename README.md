@@ -31,7 +31,7 @@ Since the images contain self-signed certificates, your browser may display a wa
 
 The grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
 
-Some key settings are included in [grocy.env](grocy.env). The included version of this file sets `GROCY_MODE=demo`; this disables authentication and loads sample database entries.
+Some key settings are included in [grocy.env](grocy.env). The included version of this file sets `GROCY_MODE=demo`; this disables authentication and creates sample database content.
 
 #### Production Mode
 
