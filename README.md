@@ -4,16 +4,16 @@ ERP beyond your fridge - now containerized!
 
 This repository includes container build infrastructure for [grocy](https://github.com/grocy/grocy).
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
-[![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy/)
+[![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy/)
 
 ## Prerequisites
 
 Follow [these instructions](https://docs.docker.com/install/) to get Docker running on your server.
 
-## Quickstart: Run grocy-docker from Docker Hub
+## Quickstart
 
-To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/r/grocy/grocy-docker), run the following commands:
+To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/u/grocy), run the following commands:
 
 ```sh
 docker-compose pull
