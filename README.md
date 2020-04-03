@@ -1,67 +1,54 @@
-# Grocy on Docker
+# grocy-docker
 
-ERP beyond your fridge - now containerized! This is the docker repo of [grocy](https://github.com/grocy/grocy).
+ERP beyond your fridge - now containerized!
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
-[![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy-docker.svg)](https://hub.docker.com/r/grocy/grocy-docker/)
+This repository includes container build infrastructure for [grocy](https://github.com/grocy/grocy).
 
-## Install Docker
+[![Docker Pulls](https://img.shields.io/docker/pulls/grocy/grocy.svg)](https://hub.docker.com/r/grocy/grocy/)
+[![Docker Stars](https://img.shields.io/docker/stars/grocy/grocy.svg)](https://hub.docker.com/r/grocy/grocy/)
 
-Follow [these instructions](https://docs.docker.com/engine/installation/) to get Docker running on your server.
+## Prerequisites
 
-## Available on Docker Hub (prebuilt) or built from source
+Follow [these instructions](https://docs.docker.com/install/) to get Docker running on your server.
 
-### To run using docker just do the following:
+## Quickstart
 
-```
-> docker-compose pull # if you haven't pulled or built
-> docker-compose up
-```
+To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/u/grocy), run the following commands:
 
-And grocy should be accessible via `http(s)://localhost/`. The https option will work. However, since the certificate is self-signed, most browsers will complain.
-
-Note: if you have not pulled any of the images from the repository, when you do an `up`, it will attempt to build from scratch!
-
-### To pull the latest images to your machine:
-
-```
-docker pull grocy/grocy-docker:nginx
-docker pull grocy/grocy-docker:grocy
+```sh
+docker-compose pull
+docker-compose up
 ```
 
-Or just `docker-compose pull`.
+The grocy application should now be accessible locally to the server:
 
-### Environment variables:
+ - [http://localhost](http://localhost)
+ - [https://localhost](https://localhost)
 
-As of grocy v1.24.1, grocy will read configuration settings from environment variables as long as they are prefixed by `GROCY_`. Some key items are included in  `grocy.env`. The shipped version of this file sets `GROCY_MODE=demo`, which will load some sample entries into the database, and doesn't require authentication. Set `GROCY_MODE=production` to put the application in production mode and require login. 
+Since the images contain self-signed certificates, your browser may display a warning when visiting the HTTPS URL.
 
-For example, to change the language from English to French, you can modify
+### Configuration
 
+The grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
+
+Some key settings are included in [grocy.env](grocy.env). The included version of this file sets `GROCY_MODE=demo`; this disables authentication and creates sample database content.
+
+#### Demo Mode
+
+To run the container in demo mode, override the `GROCY_MODE` environment variable at application run-time:
+
+```sh
+GROCY_MODE=demo docker-compose up
 ```
-GROCY_CULTURE: en
-```
 
-to
+### Build
 
-```
-GROCY_CULTURE: fr
-```
-
-### To build from scratch
-
-```
+```sh
 docker-compose build
 ```
 
-Note: if you experience build failures as a result of GitHub API rate limiting, you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
+Note: if you experience build failures as a result of GitHub API [rate limiting](https://developer.github.com/v3/#rate-limiting), you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
 
+```sh
+GITHUB_API_TOKEN='your-token-here' docker-compose build
 ```
-docker-compose build --build-arg GITHUB_API_TOKEN="your-token-here"
-```
-
-## Additional Information
-
-The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremely low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 490MB after all the dependencies are downloaded, however).
-
-## License
-The MIT License (MIT)
