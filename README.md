@@ -59,9 +59,5 @@ Note: if you experience build failures as a result of GitHub API rate limiting, 
 docker-compose build --build-arg GITHUB_API_TOKEN="your-token-here"
 ```
 
-## Additional Information
-
-The docker images build are based on [Alpine](https://hub.docker.com/_/alpine/), with an extremely low footprint (less than 10 MB for nginx, and less than 70MB for grocy with php-fm. That number is eventually bumped up to 490MB after all the dependencies are downloaded, however).
-
 ## License
 The MIT License (MIT)

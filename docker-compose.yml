@@ -30,6 +30,7 @@ services:
     tmpfs:
       - /tmp
     volumes:
+      - /var/log/php7
       - database:/var/www/data
       - www-public:/var/www/public:ro
     env_file:
