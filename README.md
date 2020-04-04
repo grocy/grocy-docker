@@ -33,6 +33,8 @@ The grocy application reads configuration settings from environment variables pr
 
 Runtime environment variables are read by `docker-compose` from the [grocy.env](grocy.env) file in this directory.
 
+The default login credentials are username `admin` and password `admin`; please change these before providing end-user access to your deployment.
+
 #### Demo Mode
 
 To run the container in demo mode, override the `GROCY_MODE` environment variable at application run-time:
