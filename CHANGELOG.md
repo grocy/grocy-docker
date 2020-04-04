@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.6.2-2] - 2020-04-04
+
+### Changed
+
+- Pull in upstream grocy v2.6.2 fix
+
 ## [v2.6.2-1] - 2020-04-04
 
 ### Changed
