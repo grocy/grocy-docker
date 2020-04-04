@@ -31,7 +31,7 @@ Since the images contain self-signed certificates, your browser may display a wa
 
 The grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
 
-Some key settings are included in [grocy.env](grocy.env).
+Runtime environment variables are read by `docker-compose` from the [grocy.env](grocy.env) file in this directory.
 
 #### Demo Mode
 
