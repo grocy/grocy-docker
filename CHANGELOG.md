@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Ensure that the application is bound to 127.0.0.1 by default
+
 ## [2.6.2] - 2020-04-03
 
 ### Added
