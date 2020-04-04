@@ -28,7 +28,7 @@ build: pod grocy nginx
 
 pod:
 	podman pod rm -f grocy-pod || true
-	podman pod create --name grocy-pod --publish 8080
+	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
 
 grocy:
 	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GITHUB_API_TOKEN=${GITHUB_API_TOKEN} --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
