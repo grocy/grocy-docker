@@ -1,8 +1,7 @@
 FROM alpine:3.11.5
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
-RUN     apk update && \
-        apk add --no-cache \
+RUN     apk add --no-cache \
             openssl \
             nginx && \
         openssl req \
