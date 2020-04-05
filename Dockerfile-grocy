@@ -34,6 +34,7 @@ RUN     apk add --no-cache \
             composer \
             yarn \
             git \
+            gnupg \
             wget
 
 # Install system dependencies
@@ -53,13 +54,14 @@ COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 USER www-data
 WORKDIR /var/www
 
+ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
+
 # Extract application release package
 RUN     set -o pipefail && \
-        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv "https://github.com/grocy/grocy/archive/${GROCY_VERSION}.tar.gz" && \
-        tar xzf "${GROCY_VERSION}.tar.gz" && \
-        rm "${GROCY_VERSION}.tar.gz" && \
-        mv grocy-*/* . && \
-        rm -r grocy-* && \
+        export GNUPGHOME=$(mktemp -d) && \
+        wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
+        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
+        git verify-commit ${GROCY_VERSION} && \
         mkdir data/viewcache && \
         cp config-dist.php data/config.php
 
