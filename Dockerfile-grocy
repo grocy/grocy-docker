@@ -81,4 +81,4 @@ EXPOSE 9000
 
 USER www-data
 
-ENTRYPOINT ["/usr/sbin/php-fpm7"]
+CMD ["php-fpm7"]

@@ -1,8 +1,7 @@
 FROM alpine:3.11.5
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
-RUN     apk update && \
-        apk add --no-cache \
+RUN     apk add --no-cache \
             openssl \
             nginx && \
         openssl req \
@@ -28,4 +27,4 @@ EXPOSE 8080 8443
 
 USER nginx
 
-ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
