@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.11.5
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
