@@ -24,8 +24,7 @@ RUN set -eux; \
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
 
 # Install system dependencies
-RUN     apk update && \
-        apk add --no-cache \
+RUN     apk add --no-cache \
             composer \
             yarn \
             git \
