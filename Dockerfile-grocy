@@ -69,6 +69,7 @@ RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN
 USER root
 RUN     apk del \
             yarn \
+            git \
             wget
 
 VOLUME ["/var/www/data", "/var/www/public"]
