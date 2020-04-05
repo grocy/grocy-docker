@@ -68,7 +68,6 @@ RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
-            composer \
             yarn \
             git \
             wget
