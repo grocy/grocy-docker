@@ -23,12 +23,15 @@ RUN set -eux; \
 # https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
 
-# Install system dependencies
+# Install build-time dependencies
 RUN     apk add --no-cache \
             composer \
             yarn \
             git \
-            wget \
+            wget
+
+# Install system dependencies
+RUN     apk add --no-cache \
             php7-fpm \
             php7-fileinfo \
             php7-gd \
@@ -42,6 +45,7 @@ RUN     apk add --no-cache \
 
 COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
+# Install application dependencies (unprivileged)
 USER www-data
 WORKDIR /var/www
 
@@ -61,8 +65,18 @@ RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN
         yarn install --modules-folder /var/www/public/node_modules --production && \
         yarn cache clean
 
+# Remove build-time dependencies (privileged)
+USER root
+RUN     apk del \
+            composer \
+            yarn \
+            git \
+            wget
+
 VOLUME ["/var/www/data", "/var/www/public"]
 
 EXPOSE 9000
+
+USER www-data
 
 ENTRYPOINT ["/usr/sbin/php-fpm7"]
