@@ -24,4 +24,4 @@ EXPOSE 8080 8443
 
 USER nginx
 
-ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
