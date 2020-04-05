@@ -62,6 +62,7 @@ RUN     set -o pipefail && \
         wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
         git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
         git verify-commit ${GROCY_VERSION} && \
+        rm -rf ${GNUPGHOME} && \
         mkdir data/viewcache && \
         cp config-dist.php data/config.php
 
