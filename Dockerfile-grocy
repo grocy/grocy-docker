@@ -23,11 +23,18 @@ RUN set -eux; \
 # https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
 
+# Configure directory permissions
+RUN     mkdir /var/log/php7 && \
+        chown www-data /var/log/php7 && \
+        mkdir /var/www && \
+        chown www-data /var/www
+
 # Install build-time dependencies
 RUN     apk add --no-cache \
             composer \
             yarn \
             git \
+            gnupg \
             wget
 
 # Install system dependencies
@@ -39,11 +46,7 @@ RUN     apk add --no-cache \
             php7-gd \
             php7-pdo_sqlite \
             php7-simplexml \
-            php7-tokenizer && \
-        mkdir -p /var/log/php7 && \
-        chown -R www-data /var/log/php7 && \
-        mkdir -p /var/www && \
-        chown -R www-data /var/www
+            php7-tokenizer
 
 COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
@@ -51,13 +54,15 @@ COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 USER www-data
 WORKDIR /var/www
 
+ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
+
 # Extract application release package
 RUN     set -o pipefail && \
-        wget --header "Authorization: ${GITHUB_API_TOKEN}" -t 3 -T 30 -nv "https://github.com/grocy/grocy/archive/${GROCY_VERSION}.tar.gz" && \
-        tar xzf "${GROCY_VERSION}.tar.gz" && \
-        rm "${GROCY_VERSION}.tar.gz" && \
-        mv grocy-*/* . && \
-        rm -r grocy-* && \
+        export GNUPGHOME=$(mktemp -d) && \
+        wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
+        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
+        git verify-commit ${GROCY_VERSION} && \
+        rm -rf ${GNUPGHOME} && \
         mkdir data/viewcache && \
         cp config-dist.php data/config.php
 
@@ -74,6 +79,7 @@ RUN     apk del \
             composer \
             yarn \
             git \
+            gnupg \
             wget
 
 VOLUME ["/var/www/data", "/var/www/public"]
