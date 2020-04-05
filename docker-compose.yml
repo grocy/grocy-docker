@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   nginx:
-    image: "grocy/nginx:v2.6.2-2"
+    image: "grocy/nginx:v2.6.2-3"
     build:
       context: .
       dockerfile: Dockerfile-grocy-nginx
@@ -21,7 +21,7 @@ services:
     container_name: nginx
 
   grocy:
-    image: "grocy/grocy:v2.6.2-2"
+    image: "grocy/grocy:v2.6.2-3"
     build:
       args:
         GITHUB_API_TOKEN: "${GITHUB_API_TOKEN}"
