@@ -66,4 +66,4 @@ VOLUME ["/var/www/data", "/var/www/public"]
 
 EXPOSE 9000
 
-ENTRYPOINT ["/usr/sbin/php-fpm7"]
+CMD ["php-fpm7"]
