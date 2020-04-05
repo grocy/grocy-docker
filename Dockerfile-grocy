@@ -79,6 +79,7 @@ RUN     apk del \
             composer \
             yarn \
             git \
+            gnupg \
             wget
 
 VOLUME ["/var/www/data", "/var/www/public"]
