@@ -14,6 +14,8 @@ ARG GROCY_VERSION
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
+ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
+
 # ensure www-data user exists
 RUN set -eux; \
 	addgroup -g 82 -S www-data; \
@@ -53,8 +55,6 @@ COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 # Install application dependencies (unprivileged)
 USER www-data
 WORKDIR /var/www
-
-ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 
 # Extract application release package
 RUN     set -o pipefail && \
