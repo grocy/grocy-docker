@@ -23,6 +23,12 @@ RUN set -eux; \
 # https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
 
+# Configure directory permissions
+RUN     mkdir /var/log/php7 && \
+        chown www-data /var/log/php7 && \
+        mkdir /var/www && \
+        chown www-data /var/www
+
 # Install build-time dependencies
 RUN     apk add --no-cache \
             composer \
@@ -39,11 +45,7 @@ RUN     apk add --no-cache \
             php7-gd \
             php7-pdo_sqlite \
             php7-simplexml \
-            php7-tokenizer && \
-        mkdir -p /var/log/php7 && \
-        chown -R www-data /var/log/php7 && \
-        mkdir -p /var/www && \
-        chown -R www-data /var/www
+            php7-tokenizer
 
 COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
