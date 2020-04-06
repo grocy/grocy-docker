@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.6.2-3] - 2020-04-06
+
+### Changed
+
+- Introduced a handful of Docker Hub image best-practices
+
 ## [v2.6.2-2] - 2020-04-04
 
 ### Changed
