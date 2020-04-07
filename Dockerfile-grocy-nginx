@@ -8,7 +8,8 @@ RUN     apk add --no-cache \
             openssl \
             git \
             gnupg \
-            wget
+            wget \
+            yarn
 
 # Install system dependencies
 RUN     apk add --no-cache \
@@ -49,13 +50,18 @@ RUN     set -o pipefail && \
         git verify-commit ${GROCY_VERSION} && \
         rm -rf ${GNUPGHOME}
 
+# Install application dependencies
+RUN     yarn install --modules-folder /var/www/public/node_modules --production && \
+        yarn cache clean
+
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
             openssl \
             git \
             gnupg \
-            wget
+            wget \
+            yarn
 
 VOLUME ["/var/log/nginx"]
 

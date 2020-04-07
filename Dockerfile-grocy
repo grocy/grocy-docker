@@ -26,7 +26,6 @@ RUN set -eux; \
 # Install build-time dependencies
 RUN     apk add --no-cache \
             composer \
-            yarn \
             git \
             gnupg \
             wget
@@ -67,15 +66,12 @@ RUN     set -o pipefail && \
 # Install application dependencies
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
-        composer clear-cache && \
-        yarn install --modules-folder /var/www/public/node_modules --production && \
-        yarn cache clean
+        composer clear-cache
 
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
             composer \
-            yarn \
             git \
             gnupg \
             wget
