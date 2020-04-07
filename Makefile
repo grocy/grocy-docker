@@ -14,7 +14,6 @@ build: pod grocy nginx
         --read-only \
         --volume /var/log/php7 \
         --volume app-db:/var/www/data \
-        --volume www-static:/var/www/public:ro \
         grocy:${IMAGE_TAG}
 	podman run \
         --add-host grocy:127.0.0.1 \
@@ -24,7 +23,6 @@ build: pod grocy nginx
         --read-only \
         --tmpfs /tmp \
         --volume /var/log/nginx \
-        --volume www-static:/var/www/public:ro \
         nginx:${IMAGE_TAG}
 
 pod:
@@ -36,5 +34,5 @@ grocy:
 	podman tag $@:${IMAGE_TAG} $@:latest
 
 nginx:
-	podman image exists $@:${IMAGE_TAG} || buildah bud -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
+	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest

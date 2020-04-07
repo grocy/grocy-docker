@@ -5,6 +5,8 @@ services:
   nginx:
     image: "grocy/nginx:v2.6.2-3"
     build:
+      args:
+        GROCY_VERSION: v2.6.2
       context: .
       dockerfile: Dockerfile-grocy-nginx
     depends_on:
@@ -17,7 +19,6 @@ services:
       - /tmp
     volumes:
       - /var/log/nginx
-      - www-static:/var/www/public:ro
     container_name: nginx
 
   grocy:
@@ -36,11 +37,9 @@ services:
     volumes:
       - /var/log/php7
       - app-db:/var/www/data
-      - www-static:/var/www/public:ro
     env_file:
       - grocy.env
     container_name: grocy
 
 volumes:
   app-db:
-  www-static:

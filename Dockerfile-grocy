@@ -14,8 +14,6 @@ ARG GROCY_VERSION
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
-ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
-
 # ensure www-data user exists
 RUN set -eux; \
 	addgroup -g 82 -S www-data; \
@@ -25,16 +23,9 @@ RUN set -eux; \
 # https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
 # https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
 
-# Configure directory permissions
-RUN     mkdir /var/log/php7 && \
-        chown www-data /var/log/php7 && \
-        mkdir /var/www && \
-        chown www-data /var/www
-
 # Install build-time dependencies
 RUN     apk add --no-cache \
             composer \
-            yarn \
             git \
             gnupg \
             wget
@@ -50,6 +41,11 @@ RUN     apk add --no-cache \
             php7-simplexml \
             php7-tokenizer
 
+# Configure directory permissions
+RUN     chown www-data /var/log/php7 && \
+        mkdir /var/www && \
+        chown www-data /var/www
+
 COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
 # Install application dependencies (unprivileged)
@@ -57,6 +53,7 @@ USER www-data
 WORKDIR /var/www
 
 # Extract application release package
+ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 RUN     set -o pipefail && \
         export GNUPGHOME=$(mktemp -d) && \
         wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
@@ -69,20 +66,17 @@ RUN     set -o pipefail && \
 # Install application dependencies
 RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
-        composer clear-cache && \
-        yarn install --modules-folder /var/www/public/node_modules --production && \
-        yarn cache clean
+        composer clear-cache
 
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
             composer \
-            yarn \
             git \
             gnupg \
             wget
 
-VOLUME ["/var/www/data", "/var/www/public"]
+VOLUME ["/var/www/data"]
 
 EXPOSE 9000
 
