@@ -14,8 +14,6 @@ ARG GROCY_VERSION
 # https://docs.docker.com/engine/reference/builder/#env
 ARG GITHUB_API_TOKEN
 
-ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
-
 # ensure www-data user exists
 RUN set -eux; \
 	addgroup -g 82 -S www-data; \
@@ -57,6 +55,7 @@ USER www-data
 WORKDIR /var/www
 
 # Extract application release package
+ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 RUN     set -o pipefail && \
         export GNUPGHOME=$(mktemp -d) && \
         wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
