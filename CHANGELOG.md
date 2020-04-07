@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.6.2-4] - 2020-04-07
+
+### Removed
+
+- Shared 'www-static' volume
+
 ## [v2.6.2-3] - 2020-04-06
 
 ### Changed
