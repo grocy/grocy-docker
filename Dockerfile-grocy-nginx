@@ -5,7 +5,10 @@ ARG GROCY_VERSION
 
 # Install build-time dependencies
 RUN     apk add --no-cache \
-            openssl
+            openssl \
+            git \
+            gnupg \
+            wget
 
 # Install system dependencies
 RUN     apk add --no-cache \
@@ -24,7 +27,8 @@ RUN     openssl req \
         chown nginx /etc/ssl/private/grocy-nginx.crt
 
 # Configure directory permissions
-RUN     chown -R nginx /var/log/nginx
+RUN     chown -R nginx /var/log/nginx && \
+        rm -rf /var/www/localhost
 
 COPY docker_nginx/nginx.conf /etc/nginx/nginx.conf
 COPY docker_nginx/common.conf /etc/nginx/common.conf
@@ -33,7 +37,10 @@ COPY docker_nginx/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
 
 # Remove build-time dependencies
 RUN     apk del \
-            openssl
+            openssl \
+            git \
+            gnupg \
+            wget
 
 VOLUME ["/var/log/nginx"]
 
