@@ -28,7 +28,8 @@ RUN     openssl req \
 
 # Configure directory permissions
 RUN     chown -R nginx /var/log/nginx && \
-        rm -rf /var/www/localhost
+        rm -rf /var/www/localhost && \
+        chown nginx /var/www
 
 COPY docker_nginx/nginx.conf /etc/nginx/nginx.conf
 COPY docker_nginx/common.conf /etc/nginx/common.conf
