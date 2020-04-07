@@ -5,6 +5,8 @@ services:
   nginx:
     image: "grocy/nginx:v2.6.2-3"
     build:
+      args:
+        GROCY_VERSION: v2.6.2
       context: .
       dockerfile: Dockerfile-grocy-nginx
     depends_on:
