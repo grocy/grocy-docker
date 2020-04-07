@@ -76,7 +76,7 @@ RUN     apk del \
             gnupg \
             wget
 
-VOLUME ["/var/www/data", "/var/www/public"]
+VOLUME ["/var/www/data"]
 
 EXPOSE 9000
 

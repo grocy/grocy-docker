@@ -19,7 +19,6 @@ services:
       - /tmp
     volumes:
       - /var/log/nginx
-      - www-static:/var/www/public:ro
     container_name: nginx
 
   grocy:
@@ -38,11 +37,9 @@ services:
     volumes:
       - /var/log/php7
       - app-db:/var/www/data
-      - www-static:/var/www/public:ro
     env_file:
       - grocy.env
     container_name: grocy
 
 volumes:
   app-db:
-  www-static:
