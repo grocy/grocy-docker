@@ -68,6 +68,10 @@ RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN
         COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
         composer clear-cache
 
+# Workaround: create node_modules directory
+# See: https://github.com/grocy/grocy/issues/744
+RUN     touch /var/www/public/node_modules
+
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
