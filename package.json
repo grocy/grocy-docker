@@ -1,0 +1,35 @@
+{
+  "name": "grocy-docker",
+  "version": "2.7.1-1",
+  "description": "ERP beyond your fridge - now containerized",
+  "main": ".",
+  "scripts": {
+    "build": "docker-compose build",
+    "test": "npm run build && npm run test:grocy && npm run test:nginx",
+    "test:grocy": "npx snyk test --docker grocy/grocy:v${npm_package_version} --file=Dockerfile-grocy-nginx",
+    "test:nginx": "npx snyk test --docker grocy/nginx:v${npm_package_version} --file=Dockerfile-grocy-nginx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grocy/grocy-docker.git"
+  },
+  "keywords": [
+    "self-hosted",
+    "food",
+    "home",
+    "erp",
+    "groceries",
+    "ownyourdata",
+    "docker",
+    "grocy"
+  ],
+  "author": "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grocy/grocy-docker/issues"
+  },
+  "homepage": "https://github.com/grocy/grocy-docker#readme",
+  "devDependencies": {
+    "snyk": "^1.305.1"
+  }
+}
