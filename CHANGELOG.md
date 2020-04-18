@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-###
+### Added
 
 - Upgrade to grocy release v2.7.1
 
