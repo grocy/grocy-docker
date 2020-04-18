@@ -61,7 +61,7 @@ GITHUB_API_TOKEN='your-token-here' docker-compose build
 
 Support is provided for running image vulnerability scans using the [snyk](https://www.npmjs.com/package/snyk) CLI tool.
 
-This requires authentication with Snyk during the vulnerability scanning process.
+This requires authentication with [Snyk](https://snyk.io/) during the vulnerability scanning process.
 
 You can read more about Snyk's vulnerability database [here](https://support.snyk.io/hc/en-us/articles/360003968978-How-efficient-is-our-Vulnerability-Database-).
 
