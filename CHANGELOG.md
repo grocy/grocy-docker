@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Upgrade to grocy release v2.7.1
+
 ## [v2.7.0-1] - 2020-04-17
 
 ### Added
