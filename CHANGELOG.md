@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.7.1-2] - 2020-04-21
+
+### Changed
+
+- Rebuild nginx image with new Alpine 'openssl' package
+- Was: 'OpenSSL 1.1.1d  10 Sep 2019'
+- Now: 'OpenSSL 1.1.1g  21 Apr 2020 (Library: OpenSSL 1.1.1d  10 Sep 2019)'
+
 ## [v2.7.1-1] - 2020-04-18
 
 ### Added
