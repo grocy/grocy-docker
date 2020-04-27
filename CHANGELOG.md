@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Rebuild container images with new Alpine 3.11.6 release
+
 ## [v2.7.1-2] - 2020-04-21
 
 ### Changed
