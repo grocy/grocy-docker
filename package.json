@@ -1,6 +1,6 @@
 {
   "name": "grocy-docker",
-  "version": "2.7.1-1",
+  "version": "2.7.1-4",
   "description": "ERP beyond your fridge - now containerized",
   "main": ".",
   "scripts": {
