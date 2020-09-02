@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Perform `apk update` prior to Alpine Linux package installation
+- Rebuild container images with new Alpine 3.12.0 release
+
 ## [v2.7.1-3] - 2020-04-27
 
 ### Changed

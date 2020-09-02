@@ -1,4 +1,4 @@
-FROM alpine:3.11.6
+FROM alpine:3.12.0
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
@@ -12,7 +12,8 @@ RUN     apk add --no-cache \
             yarn
 
 # Install system dependencies
-RUN     apk add --no-cache \
+RUN     apk update && \
+        apk add --no-cache \
             nginx
 
 # Generate TLS certificates
