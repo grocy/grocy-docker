@@ -12,7 +12,8 @@ RUN     apk add --no-cache \
             yarn
 
 # Install system dependencies
-RUN     apk add --no-cache \
+RUN     apk update && \
+        apk add --no-cache \
             nginx
 
 # Generate TLS certificates
