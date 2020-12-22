@@ -33,6 +33,7 @@ RUN     apk update && \
 
 # Install system dependencies
 RUN     apk add --no-cache \
+            php7-ctype \
             php7-fpm \
             php7-fileinfo \
             php7-iconv \
