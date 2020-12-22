@@ -1,6 +1,6 @@
 .PHONY: build pod grocy nginx
 
-GROCY_VERSION = v2.7.1
+GROCY_VERSION = v3.0.0
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
