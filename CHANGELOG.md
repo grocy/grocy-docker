@@ -9,6 +9,8 @@
 ## Changed
 
 - Supply PHP EXIF and LDAP library dependencies at build-time
+- [Minor] Update snyk vulnerability scan
+- [Minor] Refresh package-lock.json version, and remove container version suffix
 
 ## [v3.0.0-1] - 2020-12-22
 
