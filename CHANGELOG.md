@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Docker Hub container upload automation using GitHub Actions
+
+## Changed
+
+- Supply PHP EXIF and LDAP library dependencies at build-time
+
 ## [v3.0.0-1] - 2020-12-22
 
 ### Changed
