@@ -6,7 +6,7 @@
 
 - Docker Hub container upload automation using GitHub Actions
 
-## Changed
+### Changed
 
 - Supply PHP EXIF and LDAP library dependencies at build-time
 - [Minor] Update snyk vulnerability scan
