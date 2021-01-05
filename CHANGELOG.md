@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Upgrade to grocy release v3.0.1
+
 ## [v3.0.0-2] - 2021-01-02
 
 ### Added
