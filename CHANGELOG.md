@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Rebuild container images with new Alpine 3.13.0 release
+
 ## [v3.0.1-1] - 2021-01-05
 
 ### Changed
