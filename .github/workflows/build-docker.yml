@@ -1,15 +1,14 @@
 name: grocy docker container
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
 
 jobs:
   build_and_push_latest:
     runs-on: ubuntu-latest
     env:
-      GROCY_IMAGE_TAG: ${{ github.ref }}
+      GROCY_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
     - uses: actions/checkout@v2
     - name: Login to Docker Hub
