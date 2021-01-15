@@ -51,12 +51,6 @@ GROCY_MODE=demo docker-compose up
 docker-compose build
 ```
 
-Note: if you experience build failures as a result of GitHub API [rate limiting](https://developer.github.com/v3/#rate-limiting), you may optionally provide a GitHub API key (preferably restricted to `read:packages` scope) at build-time:
-
-```sh
-GITHUB_API_TOKEN='your-token-here' docker-compose build
-```
-
 ### Vulnerability Scans
 
 Support is provided for running image vulnerability scans using the [snyk](https://www.npmjs.com/package/snyk) CLI tool.

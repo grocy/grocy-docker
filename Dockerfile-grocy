@@ -3,17 +3,6 @@ LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.ne
 
 ARG GROCY_VERSION
 
-# Optionally authenticate with GitHub using an API token
-#
-# This can reduce instances of download rate limiting by GitHub
-# https://developer.github.com/v3/#rate-limiting
-#
-# This value is *not* assigned to a variable using the ENV instruction,
-# since those variables are persisted in the resulting image and could leak
-# developer credentials
-# https://docs.docker.com/engine/reference/builder/#env
-ARG GITHUB_API_TOKEN
-
 # ensure www-data user exists
 RUN set -eux; \
 	addgroup -g 82 -S www-data; \
@@ -68,8 +57,7 @@ RUN     set -o pipefail && \
         cp config-dist.php data/config.php
 
 # Install application dependencies
-RUN     COMPOSER_OAUTH=${GITHUB_API_TOKEN:+"\"github.com\": \"${GITHUB_API_TOKEN}\""} && \
-        COMPOSER_AUTH="{\"github-oauth\": { ${COMPOSER_OAUTH} }}" composer install --no-interaction --no-dev --optimize-autoloader && \
+RUN     composer install --no-interaction --no-dev --optimize-autoloader && \
         composer clear-cache
 
 # Remove build-time dependencies (privileged)
