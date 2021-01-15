@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Cleanup for GitHub Actions workflow
+
 ## [v3.0.1-3] - 2020-01-15
 
 ### Changed
