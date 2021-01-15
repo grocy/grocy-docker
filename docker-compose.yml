@@ -25,7 +25,6 @@ services:
     image: "grocy/grocy:${GROCY_IMAGE_TAG:-latest}"
     build:
       args:
-        GITHUB_API_TOKEN: "${GITHUB_API_TOKEN}"
         GROCY_VERSION: v3.0.1
       context: .
       dockerfile: Dockerfile-grocy
