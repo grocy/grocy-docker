@@ -25,4 +25,4 @@ jobs:
     - name: Build docker-compose tag
       run: GITHUB_API_TOKEN='${{ secrets.GITHUB_TOKEN }}' GROCY_IMAGE_TAG="$(git describe --abbrev=0 --tags)" docker-compose build
     - name: Push tag
-      run: docker-compose push
+      run: GROCY_IMAGE_TAG="$(git describe --abbrev=0 --tags)" docker-compose push
