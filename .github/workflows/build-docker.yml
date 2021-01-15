@@ -6,9 +6,7 @@ on:
       - 'v*'
 
 jobs:
-
   build_and_push_latest:
-
     runs-on: ubuntu-latest
     env:
       GROCY_IMAGE_TAG: ${{ github.ref }}
