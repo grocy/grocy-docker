@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Remove `GITHUB_API_TOKEN` from container build arguments
+
 ## [v3.0.1-4] - 2020-01-15
 
 ### Changed
