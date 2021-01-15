@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Migrate to a release-initiated GitHub Actions workflow
+- Consistency: remove custom naming from docker/login-action step
+
 ## [v3.0.1-6] - 2020-01-15
 
 ### Changed
