@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Fixup for GitHub Actions workflow: include image tag during 'docker-push' step
+
 ## [v3.0.1-2] - 2020-01-15
 
 ### Changed
