@@ -19,10 +19,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build docker-compose latest
-      run: docker-compose build
-    - name: Push latest image
-      run: docker-compose build
     - name: Build docker-compose tag
       run: docker-compose build
     - name: Push tag
