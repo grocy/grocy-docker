@@ -19,10 +19,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build docker-compose latest
-      run: GITHUB_API_TOKEN='${{ secrets.GITHUB_TOKEN }}' docker-compose build
+      run: docker-compose build
     - name: Push latest image
-      run: GITHUB_API_TOKEN='${{ secrets.GITHUB_TOKEN }}' docker-compose build  
+      run: docker-compose build
     - name: Build docker-compose tag
-      run: GITHUB_API_TOKEN='${{ secrets.GITHUB_TOKEN }}' GROCY_IMAGE_TAG="$(git describe --abbrev=0 --tags)" docker-compose build
+      run: GROCY_IMAGE_TAG="$(git describe --abbrev=0 --tags)" docker-compose build
     - name: Push tag
       run: GROCY_IMAGE_TAG="$(git describe --abbrev=0 --tags)" docker-compose push
