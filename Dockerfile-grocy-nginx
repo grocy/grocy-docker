@@ -1,4 +1,6 @@
-FROM alpine:3.13.1
+ARG PLATFORM
+
+FROM --platform=${PLATFORM} alpine:3.13.1
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
