@@ -4,6 +4,8 @@ GROCY_VERSION = v3.0.1
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
+platforms = linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
+
 build: pod manifest
 	podman run \
         --add-host grocy:127.0.0.1 \
@@ -28,8 +30,6 @@ build: pod manifest
 pod:
 	podman pod rm -f grocy-pod || true
 	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
-
-platforms = linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
 manifest: $(platforms)
 
