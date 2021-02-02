@@ -30,11 +30,11 @@ pod:
 	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
 
 grocy:
-	podman image rm -f $@:${IMAGE_TAG} || true
-	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
-	podman tag $@:${IMAGE_TAG} $@:latest
+	podman image rm -f grocy:${IMAGE_TAG} || true
+	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t grocy:${IMAGE_TAG} .
+	podman tag grocy:${IMAGE_TAG} grocy:latest
 
 nginx:
-	podman image rm -f $@:${IMAGE_TAG} || true
-	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
-	podman tag $@:${IMAGE_TAG} $@:latest
+	podman image rm -f nginx:${IMAGE_TAG} || true
+	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy-nginx -t nginx:${IMAGE_TAG} .
+	podman tag nginx:${IMAGE_TAG} nginx:latest
