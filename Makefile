@@ -1,6 +1,7 @@
 .PHONY: build pod grocy nginx
 
 GROCY_VERSION = v3.0.1
+PLATFORMS = "linux/arm/v6 linux/arm/v7
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
@@ -30,9 +31,11 @@ pod:
 	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
 
 grocy:
-	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
+	podman image rm -f $@:${IMAGE_TAG} || true
+	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest
 
 nginx:
-	podman image exists $@:${IMAGE_TAG} || buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
+	podman image rm -f $@:${IMAGE_TAG} || true
+	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} -f Dockerfile-grocy-nginx -t $@:${IMAGE_TAG} .
 	podman tag $@:${IMAGE_TAG} $@:latest
