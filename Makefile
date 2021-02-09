@@ -1,4 +1,4 @@
-.PHONY: build pod manifest %-grocy %-nginx
+.PHONY: build pod manifest manifest-create %-grocy %-nginx
 
 GROCY_VERSION = v3.0.1
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
