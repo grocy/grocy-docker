@@ -4,7 +4,7 @@ GROCY_VERSION = v3.0.1
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
-platforms = linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
+PLATFORM = linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
 build: pod manifest
 	podman run \
@@ -31,7 +31,7 @@ pod:
 	podman pod rm -f grocy-pod || true
 	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
 
-manifest: manifest-create $(platforms)
+manifest: manifest-create $(PLATFORM)
 
 manifest-create:
 	buildah rmi -f grocy:${IMAGE_TAG} || true
@@ -39,7 +39,7 @@ manifest-create:
 	buildah manifest create grocy:${IMAGE_TAG}
 	buildah manifest create nginx:${IMAGE_TAG}
 
-$(platforms): %: %-grocy %-nginx
+$(PLATFORM): %: %-grocy %-nginx
 
 %-grocy: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy --platform $* --quiet --tag grocy/$*:${IMAGE_TAG})
 %-grocy:
