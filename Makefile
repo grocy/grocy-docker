@@ -4,7 +4,7 @@ GROCY_VERSION = v3.0.1
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
 IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
-PLATFORM = linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
+PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
 build: pod manifest
 	podman run \
