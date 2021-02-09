@@ -31,16 +31,20 @@ pod:
 	podman pod rm -f grocy-pod || true
 	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
 
-manifest: $(platforms)
+manifest: manifest-create $(platforms)
+
+manifest-create:
+	buildah rmi -f grocy:${IMAGE_TAG} || true
+	buildah rmi -f nginx:${IMAGE_TAG} || true
+	buildah manifest create grocy:${IMAGE_TAG}
+	buildah manifest create nginx:${IMAGE_TAG}
 
 $(platforms): %: %-grocy %-nginx
 
+%-grocy: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy --platform $* --quiet --tag grocy/$*:${IMAGE_TAG})
 %-grocy:
-	podman image rm -f grocy:${IMAGE_TAG} || true
-	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy --manifest grocy --platform $* --tag grocy:${IMAGE_TAG} .
-	podman tag grocy:${IMAGE_TAG} grocy:latest
+	buildah manifest add grocy:${IMAGE_TAG} ${GROCY_IMAGE}
 
+%-nginx: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy-nginx --platform $* --quiet --tag nginx/$*:${IMAGE_TAG})
 %-nginx:
-	podman image rm -f nginx:${IMAGE_TAG} || true
-	buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy-nginx --manifest nginx --platform $* --tag nginx:${IMAGE_TAG} .
-	podman tag nginx:${IMAGE_TAG} nginx:latest
+	buildah manifest add nginx:${IMAGE_TAG} ${NGINX_IMAGE}
