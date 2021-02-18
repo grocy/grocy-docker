@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Experimental support for multi-architecture OCI image builds
+
 ### Changed
 
 - Rebuild container images with new Alpine 3.13.2 release
