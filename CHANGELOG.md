@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Rebuild container images with new Alpine 3.13.3 release
 - [Minor] Update snyk vulnerability scan
 
 ## [v3.0.1-9] - 2020-02-18
