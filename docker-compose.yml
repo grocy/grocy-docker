@@ -7,7 +7,6 @@ services:
     build:
       args:
         GROCY_VERSION: v3.0.1
-        PLATFORM: linux/amd64
       context: .
       dockerfile: Dockerfile-grocy-nginx
     depends_on:
@@ -27,7 +26,6 @@ services:
     build:
       args:
         GROCY_VERSION: v3.0.1
-        PLATFORM: linux/amd64
       context: .
       dockerfile: Dockerfile-grocy
     expose:
