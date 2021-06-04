@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   nginx:
-    image: "grocy/nginx:${GROCY_IMAGE_TAG:-latest}"
+    image: "grocy/nginx:${GROCY_IMAGE_TAG}"
     build:
       args:
         GROCY_VERSION: v3.0.1
@@ -23,7 +23,7 @@ services:
     container_name: nginx
 
   grocy:
-    image: "grocy/grocy:${GROCY_IMAGE_TAG:-latest}"
+    image: "grocy/grocy:${GROCY_IMAGE_TAG}"
     build:
       args:
         GROCY_VERSION: v3.0.1
