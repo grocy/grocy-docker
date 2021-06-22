@@ -1,5 +1,12 @@
 # Changelog
 
+## [v3.0.1-11] - 2021-05-02
+
+### Changed
+
+- Rebuild container images with new Alpine 3.13.5 release
+- [Minor] Update snyk vulnerability scan
+
 ## [v3.0.1-10] - 2021-03-25
 
 ### Changed

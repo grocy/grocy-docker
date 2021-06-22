@@ -1,4 +1,6 @@
-FROM docker.io/alpine:3.13.3
+ARG PLATFORM
+
+FROM --platform=${PLATFORM} docker.io/alpine:3.13.5
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION

@@ -1,13 +1,13 @@
 {
   "name": "grocy-docker",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "ERP beyond your fridge - now containerized",
   "main": ".",
   "scripts": {
     "build": "docker-compose build",
     "test": "npm run build && npm run test:grocy && npm run test:nginx",
-    "test:grocy": "npx snyk test --docker grocy/grocy:latest --file=Dockerfile-grocy-nginx",
-    "test:nginx": "npx snyk test --docker grocy/nginx:latest --file=Dockerfile-grocy-nginx"
+    "test:grocy": "npx snyk test --docker grocy/grocy:v3.0.1-11 --file=Dockerfile-grocy-nginx",
+    "test:nginx": "npx snyk test --docker grocy/nginx:v3.0.1-11 --file=Dockerfile-grocy-nginx"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/grocy/grocy-docker#readme",
   "devDependencies": {
-    "snyk": "^1.75.0"
+    "snyk": "^1.575.0"
   }
 }
