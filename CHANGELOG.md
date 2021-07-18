@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+- Use more meaningful container names
+  - 'grocy/grocy' becomes 'grocy/backend'
+  - 'grocy/nginx' becomes 'grocy/frontend'
+
 ## [v3.0.1-12] - 2021-07-18
 
 ### Changed
