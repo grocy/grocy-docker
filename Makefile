@@ -1,4 +1,4 @@
-.PHONY: build pod manifest manifest-create %-grocy %-nginx
+.PHONY: build pod manifest manifest-create %-backend %-frontend
 
 GROCY_VERSION = v3.0.1
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
@@ -11,21 +11,21 @@ build: pod manifest
         --add-host grocy:127.0.0.1 \
         --detach \
         --env-file grocy.env \
-        --name grocy \
+        --name backend \
         --pod grocy-pod \
         --read-only \
         --volume /var/log/php7 \
         --volume app-db:/var/www/data \
-        grocy:${IMAGE_TAG}
+        backend:${IMAGE_TAG}
 	podman run \
         --add-host grocy:127.0.0.1 \
         --detach \
-        --name nginx \
+        --name frontend \
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
         --volume /var/log/nginx \
-        nginx:${IMAGE_TAG}
+        frontend:${IMAGE_TAG}
 
 pod:
 	podman pod rm -f grocy-pod || true
@@ -34,17 +34,17 @@ pod:
 manifest: manifest-create $(PLATFORM)
 
 manifest-create:
-	buildah rmi -f grocy:${IMAGE_TAG} || true
-	buildah rmi -f nginx:${IMAGE_TAG} || true
-	buildah manifest create grocy:${IMAGE_TAG}
-	buildah manifest create nginx:${IMAGE_TAG}
+	buildah rmi -f backend:${IMAGE_TAG} || true
+	buildah rmi -f frontend:${IMAGE_TAG} || true
+	buildah manifest create backend:${IMAGE_TAG}
+	buildah manifest create frontend:${IMAGE_TAG}
 
-$(PLATFORM): %: %-grocy %-nginx
+$(PLATFORM): %: %-backend %-frontend
 
-%-grocy: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy --platform $* --quiet --tag grocy/$*:${IMAGE_TAG})
-%-grocy:
-	buildah manifest add grocy:${IMAGE_TAG} ${GROCY_IMAGE}
+%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy-backend --platform $* --quiet --tag backend/$*:${IMAGE_TAG})
+%-backend:
+	buildah manifest add backend:${IMAGE_TAG} ${GROCY_IMAGE}
 
-%-nginx: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy-nginx --platform $* --quiet --tag nginx/$*:${IMAGE_TAG})
-%-nginx:
-	buildah manifest add nginx:${IMAGE_TAG} ${NGINX_IMAGE}
+%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Dockerfile-grocy-frontend --platform $* --quiet --tag frontend/$*:${IMAGE_TAG})
+%-frontend:
+	buildah manifest add frontend:${IMAGE_TAG} ${NGINX_IMAGE}

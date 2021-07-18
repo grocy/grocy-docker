@@ -41,7 +41,7 @@ RUN     chown www-data /var/log/php7 && \
         mkdir /var/www && \
         chown www-data /var/www
 
-COPY docker_grocy/www.conf /etc/php7/php-fpm.d/zz-docker.conf
+COPY docker_backend/www.conf /etc/php7/php-fpm.d/zz-docker.conf
 
 # Install application dependencies (unprivileged)
 USER www-data

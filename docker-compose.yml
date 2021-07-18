@@ -2,16 +2,16 @@ version: '2.4'
 
 services:
 
-  nginx:
-    image: "grocy/nginx:${GROCY_IMAGE_TAG}"
+  frontend:
+    image: "grocy/frontend:${GROCY_IMAGE_TAG}"
     build:
       args:
         GROCY_VERSION: v3.0.1
         PLATFORM: linux/amd64
       context: .
-      dockerfile: Dockerfile-grocy-nginx
+      dockerfile: Dockerfile-grocy-frontend
     depends_on:
-      - grocy
+      - backend
     ports:
       - '127.0.0.1:80:8080'
       - '127.0.0.1:443:8443'
@@ -21,14 +21,14 @@ services:
     volumes:
       - /var/log/nginx
 
-  grocy:
-    image: "grocy/grocy:${GROCY_IMAGE_TAG}"
+  backend:
+    image: "grocy/backend:${GROCY_IMAGE_TAG}"
     build:
       args:
         GROCY_VERSION: v3.0.1
         PLATFORM: linux/amd64
       context: .
-      dockerfile: Dockerfile-grocy
+      dockerfile: Dockerfile-grocy-backend
     expose:
       - '9000'
     read_only: true
