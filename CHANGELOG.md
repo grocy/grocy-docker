@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Rebuild container images with Alpine 3.14.0
 - Use more meaningful container names
   - 'grocy/grocy' becomes 'grocy/backend'
   - 'grocy/nginx' becomes 'grocy/frontend'
