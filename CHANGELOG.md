@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Rebuild container images to resolve CVE-2021-21705
+- [Minor] Update snyk vulnerability scan
+
 ## [v3.0.1-11] - 2021-05-02
 
 ### Changed
