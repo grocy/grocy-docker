@@ -6,8 +6,8 @@
   "scripts": {
     "build": "docker-compose build",
     "test": "npm run build && npm run test:grocy && npm run test:nginx",
-    "test:grocy": "npx snyk test --docker grocy/grocy:v3.0.1-12 --file=Dockerfile-grocy",
-    "test:nginx": "npx snyk test --docker grocy/nginx:v3.0.1-12 --file=Dockerfile-grocy-nginx"
+    "test:backend": "npx snyk test --docker grocy/backend:v3.0.1-12 --file=Dockerfile-grocy-backend",
+    "test:frontend": "npx snyk test --docker grocy/frontend:v3.0.1-12 --file=Dockerfile-grocy-frontend"
   },
   "repository": {
     "type": "git",
