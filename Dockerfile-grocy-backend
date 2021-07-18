@@ -1,18 +1,17 @@
 ARG PLATFORM
 
-FROM --platform=${PLATFORM} docker.io/alpine:3.13.5
+FROM --platform=${PLATFORM} docker.io/alpine:3.14.0
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
 
 # ensure www-data user exists
 RUN set -eux; \
-	addgroup -g 82 -S www-data; \
-	adduser -u 82 -D -S -G www-data www-data
+       adduser -u 82 -D -S -G www-data www-data
 # 82 is the standard uid/gid for "www-data" in Alpine
-# https://git.alpinelinux.org/aports/tree/main/apache2/apache2.pre-install?h=3.9-stable
-# https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.9-stable
-# https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.9-stable
+# https://git.alpinelinux.org/aports/tree/main/apache2/apache2.pre-install?h=3.14-stable
+# https://git.alpinelinux.org/aports/tree/main/lighttpd/lighttpd.pre-install?h=3.14-stable
+# https://git.alpinelinux.org/aports/tree/main/nginx/nginx.pre-install?h=3.14-stable
 
 # Install build-time dependencies
 RUN     apk update && \
