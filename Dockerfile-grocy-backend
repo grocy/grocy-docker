@@ -40,9 +40,17 @@ RUN     apk add --no-cache \
             php8-mbstring \
             php8-openssl \
             php8-zip \
-            php8-intl && \
-        ln -s /usr/bin/php8 /usr/bin/php && \
-        wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -O /tmp/composer.phar && \
+            php8-intl
+
+# Link /usr/bin/php to /usr/bin/php8 for universall access to latest php binary. 
+# Required by composer, possibly needed by grocy
+RUN     ln -s /usr/bin/php8 /usr/bin/php
+
+# Manually install composer.
+# As php7 is still the default php version on alpine installing alpine-composer-package would install php7 an add link from /usr/bin/php to /usr/bin/php7.
+# This might conflict with grocy if grocy depends on /usr/bin/php linking to /usr/bin/php8
+# See: https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
+RUN     wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -O /tmp/composer.phar && \
         echo "${COMPOSER_CHECKSUM}  /tmp/composer.phar" | sha256sum -c - && \
         mv /tmp/composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
