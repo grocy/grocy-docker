@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.1.1-0] - 2021-08-21
 
 - Upgrade to grocy v3.1.1
 
