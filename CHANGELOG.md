@@ -6,6 +6,7 @@
 - Use more meaningful container names
   - 'grocy/grocy' becomes 'grocy/backend'
   - 'grocy/nginx' becomes 'grocy/frontend'
+- Upgrade to grocy v3.1.0 and PHP8 (thank you, @HamburgerJungeJr)
 
 ## [v3.0.1-12] - 2021-07-18
 
