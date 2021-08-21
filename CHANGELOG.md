@@ -8,12 +8,14 @@
   - 'grocy/nginx' becomes 'grocy/frontend'
 - Upgrade to grocy v3.1.0 and PHP8 (thank you, @HamburgerJungeJr)
 
-## [v3.0.1-12] - 2021-07-18
+## [v3.0.1-12] - 2021-08-21*
 
 ### Changed
 
 - Rebuild container images to resolve CVE-2021-21705
 - [Minor] Update snyk vulnerability scan
+
+*This was a late release; this should have been released on 2021-07-18 per the changelog; unfortunately it was not, and this was only noticed today, 2021-08-21
 
 ## [v3.0.1-11] - 2021-05-02
 
