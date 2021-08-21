@@ -1,6 +1,6 @@
 # Changelog
 
-## [v3.1.0-0]
+## [v3.1.0-0] - 2021-08-21
 
 - Rebuild container images with Alpine 3.14.0
 - Use more meaningful container names
