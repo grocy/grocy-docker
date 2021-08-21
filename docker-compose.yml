@@ -6,7 +6,7 @@ services:
     image: "grocy/frontend:${GROCY_IMAGE_TAG}"
     build:
       args:
-        GROCY_VERSION: v3.1.0
+        GROCY_VERSION: v3.1.1
         PLATFORM: linux/amd64
       context: .
       dockerfile: Dockerfile-grocy-frontend
