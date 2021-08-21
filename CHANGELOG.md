@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.1.0-0]
 
 - Rebuild container images with Alpine 3.14.0
 - Use more meaningful container names
