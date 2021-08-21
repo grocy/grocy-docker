@@ -4,6 +4,8 @@ FROM --platform=${PLATFORM} docker.io/alpine:3.14.0
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
+ARG COMPOSER_VERSION
+ARG COMPOSER_CHECKSUM
 
 # ensure www-data user exists
 RUN set -eux; \
@@ -16,31 +18,45 @@ RUN set -eux; \
 # Install build-time dependencies
 RUN     apk update && \
         apk add --no-cache \
-            composer \
             git \
             gnupg \
             wget
 
 # Install system dependencies
 RUN     apk add --no-cache \
-            php7-ctype \
-            php7-fpm \
-            php7-exif \
-            php7-fileinfo \
-            php7-gd \
-            php7-iconv \
-            php7-json \
-            php7-ldap \
-            php7-pdo_sqlite \
-            php7-simplexml \
-            php7-tokenizer
+            php8 \
+            php8-ctype \
+            php8-fpm \
+            php8-exif \
+            php8-fileinfo \
+            php8-gd \
+            php8-iconv \
+            php8-ldap \
+            php8-pdo_sqlite \
+            php8-simplexml \
+            php8-tokenizer \
+            php8-phar \
+            php8-curl \
+            php8-mbstring \
+            php8-openssl \
+            php8-zip \
+            php8-intl
+
+# Configure PHP8 as the system default (for composer and grocy)
+RUN     ln -s /usr/bin/php8 /usr/bin/php
+
+# Install composer from source instead of using (php7-dependent) Alpine Linux package
+# See: https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
+RUN     wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -O /tmp/composer.phar && \
+        echo "${COMPOSER_CHECKSUM}  /tmp/composer.phar" | sha256sum -c - && \
+        mv /tmp/composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
 # Configure directory permissions
-RUN     chown www-data /var/log/php7 && \
+RUN     chown www-data /var/log/php8 && \
         mkdir /var/www && \
         chown www-data /var/www
 
-COPY docker_backend/www.conf /etc/php7/php-fpm.d/zz-docker.conf
+COPY docker_backend/www.conf /etc/php8/php-fpm.d/zz-docker.conf
 
 # Install application dependencies (unprivileged)
 USER www-data
@@ -64,7 +80,6 @@ RUN     composer install --no-interaction --no-dev --optimize-autoloader && \
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
-            composer \
             git \
             gnupg \
             wget
@@ -75,4 +90,4 @@ EXPOSE 9000
 
 USER www-data
 
-CMD ["php-fpm7"]
+CMD ["php-fpm8"]
