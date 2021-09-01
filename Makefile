@@ -1,4 +1,4 @@
-.PHONY: build pod manifest manifest-create %-backend %-frontend
+.PHONY: build run pod manifest manifest-create %-backend %-frontend
 
 GROCY_VERSION = v3.1.1
 COMPOSER_VERSION = 2.1.5
@@ -9,7 +9,9 @@ IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), 
 IMAGE_PREFIX ?= docker.io/grocy
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
-build: pod manifest
+build: manifest run
+
+run: pod
 	podman run \
         --add-host grocy:127.0.0.1 \
         --detach \
