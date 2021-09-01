@@ -4,7 +4,7 @@ GROCY_VERSION = v3.1.1
 COMPOSER_VERSION = 2.1.5
 COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
-IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
+IMAGE_TAG ?= $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
 
 IMAGE_PREFIX ?= docker.io/grocy
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
