@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.1.1-1] - 2021-09-02
+
+- Fixup: use correct GROCY_VERSION (v3.1.1) for backend in docker-compose.yml (thank you, @Kritzefitz)
+
 ## [v3.1.1-0] - 2021-08-21
 
 - Upgrade to grocy v3.1.1
