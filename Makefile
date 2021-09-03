@@ -10,10 +10,9 @@ PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux
 
 build: manifest
 
-run: pod
-	podman run \
+create: pod
+	podman create \
         --add-host grocy:127.0.0.1 \
-        --detach \
         --env-file grocy.env \
         --name backend \
         --pod grocy-pod \
@@ -21,15 +20,17 @@ run: pod
         --volume /var/log/php8 \
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
-	podman run \
+	podman create \
         --add-host grocy:127.0.0.1 \
-        --detach \
         --name frontend \
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
         --volume /var/log/nginx \
         ${IMAGE_PREFIX}/frontend:${IMAGE_TAG}
+
+run: create
+	podman pod start grocy-pod
 
 pod:
 	podman pod rm -f grocy-pod || true
