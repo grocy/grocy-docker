@@ -8,7 +8,7 @@ IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 IMAGE_PREFIX ?= docker.io/grocy
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
-build: manifest run
+build: manifest
 
 run: pod
 	podman run \
