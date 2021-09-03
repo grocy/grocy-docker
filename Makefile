@@ -5,10 +5,10 @@ COMPOSER_VERSION = 2.1.5
 COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 IMAGE_PREFIX ?= docker.io/grocy
-BACKEND_CONTAINER_NAME ?= backend
-FRONTEND_CONTAINER_NAME ?= frontend
+BACKEND_CONTAINER_NAME ?= grocy-backend
+FRONTEND_CONTAINER_NAME ?= grocy-frontend
 POD_NAME ?= grocy-pod
-APP_DB_VOLUME_NAME ?= app-db
+APP_DB_VOLUME_NAME ?= grocy-app-db
 
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
