@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+- Changes to the Makefile
+  - The `build` target now only builds the image, but does not start it.
+  - The `create` target (re)creates a pod for grocy, but does not start it.
+  - The `run` target depends on `create` and then starts the created pod.
+  - The host prefixes of the images are now set to match the official images on Docker hub and can be overriden using the IMAGE_PREFIX variable.
+  - The image tags are now generated from `git describe`, but can be overridden using the IMAGE_TAG variable.
+
 ## [v3.1.1-1] - 2021-09-02
 
 - Fixup: use correct GROCY_VERSION (v3.1.1) for backend in docker-compose.yml (thank you, @Kritzefitz)
