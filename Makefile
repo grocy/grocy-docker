@@ -1,33 +1,36 @@
-.PHONY: build pod manifest manifest-create %-backend %-frontend
+.PHONY: build run pod manifest manifest-create %-backend %-frontend
 
 GROCY_VERSION = v3.1.1
 COMPOSER_VERSION = 2.1.5
 COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
-IMAGE_COMMIT := $(shell git rev-parse --short HEAD)
-IMAGE_TAG := $(strip $(if $(shell git status --porcelain --untracked-files=no), "${IMAGE_COMMIT}-dirty", "${IMAGE_COMMIT}"))
+IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 
+IMAGE_PREFIX ?= docker.io/grocy
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
-build: pod manifest
-	podman run \
+build: manifest
+
+create: pod
+	podman create \
         --add-host grocy:127.0.0.1 \
-        --detach \
         --env-file grocy.env \
         --name backend \
         --pod grocy-pod \
         --read-only \
         --volume /var/log/php8 \
         --volume app-db:/var/www/data \
-        backend:${IMAGE_TAG}
-	podman run \
+        ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
+	podman create \
         --add-host grocy:127.0.0.1 \
-        --detach \
         --name frontend \
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
         --volume /var/log/nginx \
-        frontend:${IMAGE_TAG}
+        ${IMAGE_PREFIX}/frontend:${IMAGE_TAG}
+
+run: create
+	podman pod start grocy-pod
 
 pod:
 	podman pod rm -f grocy-pod || true
@@ -36,17 +39,17 @@ pod:
 manifest: manifest-create $(PLATFORM)
 
 manifest-create:
-	buildah rmi -f backend:${IMAGE_TAG} || true
-	buildah rmi -f frontend:${IMAGE_TAG} || true
-	buildah manifest create backend:${IMAGE_TAG}
-	buildah manifest create frontend:${IMAGE_TAG}
+	buildah rmi -f ${IMAGE_PREFIX}/backend:${IMAGE_TAG} || true
+	buildah rmi -f ${IMAGE_PREFIX}/frontend:${IMAGE_TAG} || true
+	buildah manifest create ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
+	buildah manifest create ${IMAGE_PREFIX}/frontend:${IMAGE_TAG}
 
 $(PLATFORM): %: %-backend %-frontend
 
-%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-backend --platform $* --quiet --tag backend/$*:${IMAGE_TAG})
+%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-backend --platform $* --quiet --tag ${IMAGE_PREFIX}/backend/$*:${IMAGE_TAG})
 %-backend:
-	buildah manifest add backend:${IMAGE_TAG} ${GROCY_IMAGE}
+	buildah manifest add ${IMAGE_PREFIX}/backend:${IMAGE_TAG} ${GROCY_IMAGE}
 
-%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-frontend --platform $* --quiet --tag frontend/$*:${IMAGE_TAG})
+%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-frontend --platform $* --quiet --tag ${IMAGE_PREFIX}/frontend/$*:${IMAGE_TAG})
 %-frontend:
-	buildah manifest add frontend:${IMAGE_TAG} ${NGINX_IMAGE}
+	buildah manifest add ${IMAGE_PREFIX}/frontend:${IMAGE_TAG} ${NGINX_IMAGE}
