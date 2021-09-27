@@ -20,6 +20,7 @@ create: pod
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
+        --add-host backend:127.0.0.1 \
         --name frontend \
         --pod grocy-pod \
         --read-only \
