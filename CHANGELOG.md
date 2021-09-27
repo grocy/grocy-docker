@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Upgrade to grocy v3.1.2
 - Changes to the Makefile
   - The `build` target now only builds the image, but does not start it.
   - The `create` target (re)creates a pod for grocy, but does not start it.
