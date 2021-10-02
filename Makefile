@@ -12,7 +12,6 @@ build: manifest
 
 create: pod
 	podman create \
-        --add-host grocy:127.0.0.1 \
         --env-file grocy.env \
         --name backend \
         --pod grocy-pod \
@@ -21,7 +20,7 @@ create: pod
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
-        --add-host grocy:127.0.0.1 \
+        --add-host backend:127.0.0.1 \
         --name frontend \
         --pod grocy-pod \
         --read-only \
