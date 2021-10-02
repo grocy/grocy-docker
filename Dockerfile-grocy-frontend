@@ -54,7 +54,7 @@ RUN     set -o pipefail && \
         rm -rf ${GNUPGHOME}
 
 # Install application dependencies
-RUN     yarn install --modules-folder /var/www/public/node_modules --production && \
+RUN     yarn install --frozen-lockfile --modules-folder /var/www/public/node_modules --production && \
         yarn cache clean
 
 # Remove build-time dependencies (privileged)
