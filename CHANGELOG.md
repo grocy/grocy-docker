@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.1.2-0] - 2021-10-05
 
 - Upgrade to grocy v3.1.2
 - Changes to the Makefile
