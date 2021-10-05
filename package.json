@@ -5,7 +5,7 @@
   "main": ".",
   "scripts": {
     "build": "docker-compose build",
-    "test": "npm run build && npm run test:grocy && npm run test:nginx",
+    "test": "npm run build && npm run test:backend && npm run test:frontend",
     "test:backend": "npx snyk test --docker grocy/backend:v3.1.2-0 --file=Dockerfile-grocy-backend",
     "test:frontend": "npx snyk test --docker grocy/frontend:v3.1.2-0 --file=Dockerfile-grocy-frontend"
   },
