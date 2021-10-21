@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/grocy/grocy-docker#readme",
   "devDependencies": {
-    "snyk": "^1.741.0"
+    "snyk": "^1.744.0"
   }
 }
