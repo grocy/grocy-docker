@@ -11,9 +11,34 @@ jobs:
       GROCY_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
     - uses: actions/checkout@v2
-    - uses: docker/login-action@v1
+    # Enable Ubuntu development (impish) repository packages, to ensure that a recent version of 'buildah' is available
+    - run: echo "deb http://archive.ubuntu.com/ubuntu/ impish main universe" | sudo tee -a /etc/apt/sources.list
+    - run: echo "deb http://archive.ubuntu.com/ubuntu/ impish-security main universe" | sudo tee -a /etc/apt/sources.list
+    - run: sudo apt-get update
+    - run: sudo apt-get install -y buildah qemu-user-static
+    # Build multi-architecture container manifests
+    - id: build-grocy-backend
+      uses: redhat-actions/buildah-build@v2.9
+      image: grocy/backend
+      platforms: linux/amd64, linux/arm64/v8
+      containerfiles: Dockerfile-grocy-backend
+    - id: build-grocy-frontend
+      uses: redhat-actions/buildah-build@v2.9
+      image: grocy/frontend
+      platforms: linux/amd64, linux/arm64/v8
+      containerfiles: Dockerfile-grocy-frontend
+    # Publish the container manifests
+    - uses: redhat-actions/push-to-registry@v2.5
       with:
+        image: ${{ steps.build-grocy-backend.outputs.image }}
+        tags: ${{ github.event.release.tag_name }}
+        registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - run: docker-compose build
-    - run: docker-compose push
+    - uses: redhat-actions/push-to-registry@v2.5
+      with:
+        image: ${{ steps.build-grocy-frontend.outputs.image }}
+        tags: ${{ github.event.release.tag_name }}
+        registry: docker.io/grocy
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
