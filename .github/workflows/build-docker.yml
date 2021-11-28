@@ -1,6 +1,8 @@
 name: grocy docker container
 
-on: push
+on:
+  release:
+    types: [published]
 
 jobs:
   build_and_push_latest:
