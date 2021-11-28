@@ -19,7 +19,6 @@ jobs:
       uses: redhat-actions/buildah-build@v2.9
       with:
         image: backend
-        tags: ${{ github.event.release.tag_name }}
         platforms: linux/amd64, linux/arm64/v8
         containerfiles: Dockerfile-grocy-backend
         build-args: |
@@ -30,7 +29,6 @@ jobs:
       uses: redhat-actions/buildah-build@v2.9
       with:
         image: frontend
-        tags: ${{ github.event.release.tag_name }}
         platforms: linux/amd64, linux/arm64/v8
         containerfiles: Dockerfile-grocy-frontend
         build-args: |
