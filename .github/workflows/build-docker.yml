@@ -36,14 +36,14 @@ jobs:
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
-        image: ${{ steps.build-grocy-backend.outputs.image }}
+        image: ${{ steps.build-grocy-backend.outputs.image-with-tag }}
         tags: ${{ github.event.release.tag_name }}
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: redhat-actions/push-to-registry@v2.5
       with:
-        image: ${{ steps.build-grocy-frontend.outputs.image }}
+        image: ${{ steps.build-grocy-frontend.outputs.image-with-tag }}
         tags: ${{ github.event.release.tag_name }}
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
