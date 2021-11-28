@@ -17,14 +17,16 @@ jobs:
     # Build multi-architecture container manifests
     - id: build-grocy-backend
       uses: redhat-actions/buildah-build@v2.9
-      image: grocy/backend
-      platforms: linux/amd64, linux/arm64/v8
-      containerfiles: Dockerfile-grocy-backend
+      with:
+        image: grocy/backend
+        platforms: linux/amd64, linux/arm64/v8
+        containerfiles: Dockerfile-grocy-backend
     - id: build-grocy-frontend
       uses: redhat-actions/buildah-build@v2.9
-      image: grocy/frontend
-      platforms: linux/amd64, linux/arm64/v8
-      containerfiles: Dockerfile-grocy-frontend
+      with:
+        image: grocy/frontend
+        platforms: linux/amd64, linux/arm64/v8
+        containerfiles: Dockerfile-grocy-frontend
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
