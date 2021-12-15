@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.1.3-1] - 2021-12-15
 
 - Add continuous integration support for multi-architecture container builds
 - Rebuild container images with Alpine 3.15.0
