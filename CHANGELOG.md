@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Add continuous integration support for multi-architecture container builds
+- Rebuild container images with Alpine 3.15.0
+
 ## [v3.1.3-0] - 2021-11-23
 
 - Upgrade to grocy v3.1.3
