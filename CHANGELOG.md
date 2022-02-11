@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.2.0-0] - 2022-02-11
+
+- Upgrade to grocy v3.2.0
+
 ## [v3.1.3-1] - 2021-12-15
 
 - Add continuous integration support for multi-architecture container builds

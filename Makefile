@@ -1,6 +1,6 @@
 .PHONY: build run pod manifest manifest-create %-backend %-frontend
 
-GROCY_VERSION = v3.1.3
+GROCY_VERSION = v3.2.0
 COMPOSER_VERSION = 2.1.5
 COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
