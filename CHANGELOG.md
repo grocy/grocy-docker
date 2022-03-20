@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Rebuild container images with Alpine 3.15.1
+
 ## [v3.2.0-0] - 2022-02-11
 
 - Upgrade to grocy v3.2.0
