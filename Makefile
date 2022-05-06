@@ -9,6 +9,7 @@ BACKEND_CONTAINER_NAME ?= grocy-backend
 FRONTEND_CONTAINER_NAME ?= grocy-frontend
 POD_NAME ?= grocy-pod
 APP_DB_VOLUME_NAME ?= grocy-app-db
+PUBLISH_AT ?= 127.0.0.1:8080
 
 PLATFORM ?= linux/386 linux/amd64 linux/arm/v6 linux/arm/v7 linux/arm64/v8 linux/ppc64le linux/s390x
 
@@ -42,7 +43,7 @@ run: create
 
 pod:
 	podman pod rm -f ${POD_NAME} || true
-	podman pod create --name ${POD_NAME} --publish 127.0.0.1:8080:8080
+	podman pod create --name ${POD_NAME} --publish "${PUBLISH_AT}:8080"
 
 manifest: manifest-create $(PLATFORM)
 
