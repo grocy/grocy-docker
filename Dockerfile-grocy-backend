@@ -1,6 +1,6 @@
 ARG PLATFORM
 
-FROM --platform=${PLATFORM} docker.io/alpine:3.15.4
+FROM --platform=${PLATFORM} docker.io/alpine:3.16.0
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
@@ -41,9 +41,6 @@ RUN     apk add --no-cache \
             php8-openssl \
             php8-zip \
             php8-intl
-
-# Configure PHP8 as the system default (for composer and grocy)
-RUN     ln -s /usr/bin/php8 /usr/bin/php
 
 # Install composer from source instead of using (php7-dependent) Alpine Linux package
 # See: https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
