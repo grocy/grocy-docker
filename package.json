@@ -1,13 +1,13 @@
 {
   "name": "grocy-docker",
-  "version": "3.3.0-0",
+  "version": "3.3.0-1",
   "description": "ERP beyond your fridge - now containerized",
   "main": ".",
   "scripts": {
     "build": "docker-compose build",
     "test": "npm run build && npm run test:backend && npm run test:frontend",
-    "test:backend": "npx snyk test --docker grocy/backend:v3.3.0-0 --file=Dockerfile-grocy-backend",
-    "test:frontend": "npx snyk test --docker grocy/frontend:v3.3.0-0 --file=Dockerfile-grocy-frontend"
+    "test:backend": "npx snyk test --docker grocy/backend:v3.3.0-1 --file=Dockerfile-grocy-backend",
+    "test:frontend": "npx snyk test --docker grocy/frontend:v3.3.0-1 --file=Dockerfile-grocy-frontend"
   },
   "repository": {
     "type": "git",
