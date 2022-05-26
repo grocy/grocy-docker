@@ -23,12 +23,12 @@ RUN     openssl req \
                 -x509 \
                 -newkey rsa:2048 \
                 -keyout /etc/ssl/private/grocy-nginx.key \
-                -out /etc/ssl1.1/private/grocy-nginx.crt \
+                -out /etc/ssl/private/grocy-nginx.crt \
                 -days 365 \
                 -nodes \
                 -subj /CN=localhost && \
-        chown nginx /etc/ssl1.1/private/grocy-nginx.key && \
-        chown nginx /etc/ssl1.1/private/grocy-nginx.crt
+        chown nginx /etc/ssl/private/grocy-nginx.key && \
+        chown nginx /etc/ssl/private/grocy-nginx.crt
 
 # Configure directory permissions
 RUN     chown -R nginx /var/log/nginx && \
