@@ -5,8 +5,6 @@ COMPOSER_VERSION = 2.1.5
 COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 IMAGE_PREFIX ?= docker.io/grocy
-BACKEND_CONTAINER_NAME ?= grocy-backend
-FRONTEND_CONTAINER_NAME ?= grocy-frontend
 POD_NAME ?= grocy-pod
 APP_DB_VOLUME_NAME ?= grocy-app-db
 PUBLISH_AT ?= 127.0.0.1:8080
@@ -21,7 +19,6 @@ create: pod
         --add-host frontend:127.0.0.1 \
         --add-host backend:127.0.0.1 \
         --env-file grocy.env \
-        --name "${BACKEND_CONTAINER_NAME}" \
         --pod "${POD_NAME}" \
         --read-only \
         --volume /var/log/php8 \
@@ -31,7 +28,6 @@ create: pod
         --add-host grocy:127.0.0.1 \
         --add-host frontend:127.0.0.1 \
         --add-host backend:127.0.0.1 \
-        --name "${FRONTEND_CONTAINER_NAME}" \
         --pod "${POD_NAME}" \
         --read-only \
         --tmpfs /tmp \
