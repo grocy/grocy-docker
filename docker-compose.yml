@@ -6,7 +6,7 @@ services:
     image: "grocy/frontend:${GROCY_IMAGE_TAG}"
     build:
       args:
-        GROCY_VERSION: v3.3.0
+        GROCY_VERSION: v3.3.1
         PLATFORM: linux/amd64
       context: .
       dockerfile: Dockerfile-grocy-frontend
@@ -25,7 +25,7 @@ services:
     image: "grocy/backend:${GROCY_IMAGE_TAG}"
     build:
       args:
-        GROCY_VERSION: v3.3.0
+        GROCY_VERSION: v3.3.1
         PLATFORM: linux/amd64
         COMPOSER_VERSION: "2.1.5"
         COMPOSER_CHECKSUM: "be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec"
