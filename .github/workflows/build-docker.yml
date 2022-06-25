@@ -16,6 +16,8 @@ jobs:
     - run: echo "deb http://archive.ubuntu.com/ubuntu/ impish-security main universe" | sudo tee -a /etc/apt/sources.list
     - run: sudo apt-get update
     - run: sudo apt-get install -y buildah qemu-user-static
+    # Determine the grocy application version to bundle based on the image tag to publish
+    - run: echo "GROCY_VERSION=${{ env.GROCY_IMAGE_TAG }}" | sed -e "s/-[0-9a-f]*$//" >> $GITHUB_ENV
     # Build multi-architecture container manifests
     - id: build-grocy-backend
       uses: redhat-actions/buildah-build@v2.9
@@ -25,7 +27,7 @@ jobs:
         platforms: linux/amd64, linux/arm64/v8
         containerfiles: Dockerfile-grocy-backend
         build-args: |
-          GROCY_VERSION=v3.3.1
+          GROCY_VERSION=${{ env.GROCY_VERSION }}
           COMPOSER_VERSION=2.1.5
           COMPOSER_CHECKSUM=be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
     - id: build-grocy-frontend
@@ -36,7 +38,7 @@ jobs:
         platforms: linux/amd64, linux/arm64/v8
         containerfiles: Dockerfile-grocy-frontend
         build-args: |
-          GROCY_VERSION=v3.3.1
+          GROCY_VERSION=${{ env.GROCY_VERSION }}
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
