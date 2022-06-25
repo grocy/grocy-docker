@@ -16,7 +16,7 @@ Follow [these instructions](https://docs.docker.com/install/) to get Docker runn
 To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/u/grocy), run the following commands:
 
 ```sh
-export GROCY_IMAGE_TAG=v3.3.1-0
+export GROCY_IMAGE_TAG=v3.3.1-1
 docker-compose pull
 docker-compose up
 ```
