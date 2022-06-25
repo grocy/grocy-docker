@@ -45,10 +45,10 @@ manifest-create:
 
 $(PLATFORM): %: %-backend %-frontend
 
-%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-backend --platform $* --quiet --tag ${IMAGE_PREFIX}/backend/$*:${IMAGE_TAG})
+%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Containerfile-backend --platform $* --quiet --tag ${IMAGE_PREFIX}/backend/$*:${IMAGE_TAG})
 %-backend:
 	buildah manifest add ${IMAGE_PREFIX}/backend:${IMAGE_TAG} ${GROCY_IMAGE}
 
-%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Dockerfile-grocy-frontend --platform $* --quiet --tag ${IMAGE_PREFIX}/frontend/$*:${IMAGE_TAG})
+%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Containerfile-frontend --platform $* --quiet --tag ${IMAGE_PREFIX}/frontend/$*:${IMAGE_TAG})
 %-frontend:
 	buildah manifest add ${IMAGE_PREFIX}/frontend:${IMAGE_TAG} ${NGINX_IMAGE}

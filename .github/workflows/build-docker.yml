@@ -25,7 +25,7 @@ jobs:
         image: backend
         tags: ${{ env.GROCY_IMAGE_TAG }} ${{ env.GROCY_VERSION }}
         platforms: linux/amd64, linux/arm64/v8
-        containerfiles: Dockerfile-grocy-backend
+        containerfiles: Containerfile-backend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
           COMPOSER_VERSION=2.1.5
@@ -36,7 +36,7 @@ jobs:
         image: frontend
         tags: ${{ env.GROCY_IMAGE_TAG }} ${{ env.GROCY_VERSION }}
         platforms: linux/amd64, linux/arm64/v8
-        containerfiles: Dockerfile-grocy-frontend
+        containerfiles: Containerfile-frontend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
     # Publish the container manifests

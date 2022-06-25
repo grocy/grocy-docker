@@ -9,7 +9,7 @@ services:
         GROCY_VERSION: v3.3.1
         PLATFORM: linux/amd64
       context: .
-      dockerfile: Dockerfile-grocy-frontend
+      dockerfile: Containerfile-frontend
     depends_on:
       - backend
     ports:
@@ -30,7 +30,7 @@ services:
         COMPOSER_VERSION: "2.1.5"
         COMPOSER_CHECKSUM: "be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec"
       context: .
-      dockerfile: Dockerfile-grocy-backend
+      dockerfile: Containerfile-backend
     expose:
       - '9000'
     read_only: true
