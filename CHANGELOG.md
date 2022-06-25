@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.1-3] - 2022-06-25
 
 - Re-introduce Snyk-based Docker vulnerability scanning (#172)
 
