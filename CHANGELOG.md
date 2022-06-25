@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+- Release process changes (#168)
+  - Dynamically determine the grocy app version based on git tag (#169)
+  - Publish images using two tags: the grocy app version, and the git tag (#170)
+  - Temporarily remove Snyk container scanning support (#170)
+    - This will move into the GitHub Actions workflows in future
+
 ## [v3.3.1-1] - 2022-06-25
 
 - Fix: GitHub Actions container build version had not been updated to v3.3.1 (was: v3.3.0)
