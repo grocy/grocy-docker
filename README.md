@@ -51,20 +51,6 @@ GROCY_MODE=demo docker-compose up
 docker-compose build
 ```
 
-### Vulnerability Scans
-
-Support is provided for running image vulnerability scans using the [snyk](https://www.npmjs.com/package/snyk) CLI tool.
-
-This requires authentication with [Snyk](https://snyk.io/) during the vulnerability scanning process.
-
-You can read more about Snyk's vulnerability database [here](https://support.snyk.io/hc/en-us/articles/360003968978-How-efficient-is-our-Vulnerability-Database-).
-
-To perform a vulnerability scan, use the following command:
-
-```sh
-npm run test
-```
-
 #### OCI Images
 
 Optional support for building [opencontainer](https://www.opencontainers.org/) images is available via the [Makefile](Makefile) provided.
