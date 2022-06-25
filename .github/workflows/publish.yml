@@ -1,4 +1,4 @@
-name: grocy docker container
+name: publish grocy container images
 
 on:
   release:
