@@ -44,12 +44,12 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        image: backend:${{ env.GROCY_IMAGE_TAG }}-linuxamd64  # workaround: pick a specific architecture to scan
+        image: backend:${{ env.GROCY_IMAGE_TAG }}
     - uses: snyk/actions/docker@0.3.0
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        image: frontend:${{ env.GROCY_IMAGE_TAG }}-linuxamd64  # workaround: pick a specific architecture to scan
+        image: frontend:${{ env.GROCY_IMAGE_TAG }}
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
