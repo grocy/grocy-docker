@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Fix: GitHub Actions container build version had not been updated to v3.3.1 (was: v3.3.0)
+  - This means that Docker Hub image 2507e6e6f77a44cbe58915296aab590ee8bee501fb0d4605024e7dfbc7b5760c - tagged as v3.3.1 - in fact contains Grocy v3.3.0
+
 ## [v3.3.1-0] - 2022-06-13
 
 - Upgrade to grocy v3.3.1
