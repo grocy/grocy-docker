@@ -53,7 +53,7 @@ RUN     chown www-data /var/log/php8 && \
         mkdir /var/www && \
         chown www-data /var/www
 
-COPY docker_backend/www.conf /etc/php8/php-fpm.d/zz-docker.conf
+COPY static/backend/www.conf /etc/php8/php-fpm.d/zz-docker.conf
 
 # Install application dependencies (unprivileged)
 USER www-data
