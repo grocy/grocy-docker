@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.1-2] - 2022-06-25
 
 - Release process changes (#168)
   - Dynamically determine the grocy app version based on git tag (#169)
