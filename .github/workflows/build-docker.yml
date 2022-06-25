@@ -43,14 +43,14 @@ jobs:
     - uses: redhat-actions/push-to-registry@v2.5
       with:
         image: ${{ steps.build-grocy-backend.outputs.image }}
-        tags: ${{ github.event.release.tag_name }}
+        tags: ${{ steps.build-grocy-backend.outputs.tags }}
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: redhat-actions/push-to-registry@v2.5
       with:
         image: ${{ steps.build-grocy-frontend.outputs.image }}
-        tags: ${{ github.event.release.tag_name }}
+        tags: ${{ steps.build-grocy-frontend.outputs.tags }}
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
