@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   frontend:
-    image: "grocy/frontend:${GROCY_IMAGE_TAG}"
+    image: "grocy/frontend:v3.3.1"
     build:
       args:
         GROCY_VERSION: v3.3.1
@@ -22,7 +22,7 @@ services:
       - /var/log/nginx
 
   backend:
-    image: "grocy/backend:${GROCY_IMAGE_TAG}"
+    image: "grocy/backend:v3.3.1"
     build:
       args:
         GROCY_VERSION: v3.3.1
