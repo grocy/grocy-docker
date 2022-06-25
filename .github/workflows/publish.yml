@@ -39,6 +39,13 @@ jobs:
         containerfiles: Containerfile-frontend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
+    # Perform vulnerability scanning
+    - uses: anchore/scan-action@v3
+      with:
+        image: ${{ steps.build-grocy-backend.outputs.image }}
+    - uses: anchore/scan-action@v3
+      with:
+        image: ${{ steps.build-grocy-frontend.outputs.image }}
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
