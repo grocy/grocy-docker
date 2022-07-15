@@ -42,10 +42,10 @@ jobs:
     # Perform vulnerability scanning
     - uses: anchore/scan-action@v3
       with:
-        image: backend
+        image: backend:${{ env.GROCY_IMAGE_TAG }}
     - uses: anchore/scan-action@v3
       with:
-        image: frontend
+        image: frontend:${{ env.GROCY_IMAGE_TAG }}
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
