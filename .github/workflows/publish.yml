@@ -7,6 +7,8 @@ on:
 jobs:
   build_and_push_latest:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # permit upload of sarif output from the workflow
     env:
       GROCY_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
@@ -59,6 +61,10 @@ jobs:
     - uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
+        acs-report-enable: true
+        fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
     - uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
+        acs-report-enable: true
+        fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
