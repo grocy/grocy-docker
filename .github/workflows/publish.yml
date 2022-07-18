@@ -55,6 +55,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     # Perform vulnerability scanning
+    ## Note: please move this to *before* the container publish steps after confirming a way to use anchore/scan-action with locally-built OCI images
     - uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
