@@ -58,13 +58,23 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     # Perform vulnerability scanning
     ## Note: please move this to *before* the container publish steps after confirming a way to use anchore/scan-action with locally-built OCI images
-    - uses: anchore/scan-action@v3
+    - id: scan-grocy-backend
+      uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
         acs-report-enable: true
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
-    - uses: anchore/scan-action@v3
+    - id: scan-grocy-frontend
+      uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
         acs-report-enable: true
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        category: scan-grocy-backend
+        sarif_file: ${{ steps.scan-grocy-backend.outputs.sarif }}
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        category: scan-grocy-frontend
+        sarif_file: ${{ steps.scan-grocy-frontend.outputs.sarif }}
