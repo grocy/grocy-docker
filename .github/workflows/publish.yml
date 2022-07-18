@@ -57,7 +57,7 @@ jobs:
     # Perform vulnerability scanning
     - uses: anchore/scan-action@v3
       with:
-        image: backend:${{ env.GROCY_IMAGE_TAG }}
+        image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
     - uses: anchore/scan-action@v3
       with:
-        image: frontend:${{ env.GROCY_IMAGE_TAG }}
+        image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
