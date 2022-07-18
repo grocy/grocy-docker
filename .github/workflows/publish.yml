@@ -39,13 +39,6 @@ jobs:
         containerfiles: Containerfile-frontend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
-    # Perform vulnerability scanning
-    - uses: anchore/scan-action@v3
-      with:
-        image: backend:${{ env.GROCY_IMAGE_TAG }}
-    - uses: anchore/scan-action@v3
-      with:
-        image: frontend:${{ env.GROCY_IMAGE_TAG }}
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
@@ -61,3 +54,11 @@ jobs:
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    # Perform vulnerability scanning
+    ## Note: please move this to *before* the container publish steps after confirming a way to use anchore/scan-action with locally-built OCI images
+    - uses: anchore/scan-action@v3
+      with:
+        image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
+    - uses: anchore/scan-action@v3
+      with:
+        image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
