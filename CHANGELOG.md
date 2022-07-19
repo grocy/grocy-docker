@@ -4,6 +4,11 @@
 
 - Rebuild container images with Alpine 3.16.1
 
+## [v3.3.1-3] - 2022-06-25 - 2022-07-19
+
+- This release version was used to test changes to grocy-docker's GitHub Actions release process
+- Container vulnerability scanning was successfully enabled as of 2022-07-19 (#173, #174, #175)
+
 ## [v3.3.1-2] - 2022-06-25
 
 - Release process changes (#168)
