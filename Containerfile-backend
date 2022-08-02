@@ -3,9 +3,11 @@ ARG PLATFORM
 FROM --platform=${PLATFORM} docker.io/alpine:3.16.1
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
+ARG GROCY_REPO
 ARG GROCY_VERSION
 ARG COMPOSER_VERSION
 ARG COMPOSER_CHECKSUM
+ARG GROCY_RELEASE_KEY_URI
 
 # ensure www-data user exists
 RUN set -eux; \
@@ -60,11 +62,10 @@ USER www-data
 WORKDIR /var/www
 
 # Extract application release package
-ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 RUN     set -o pipefail && \
         export GNUPGHOME=$(mktemp -d) && \
         wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
-        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
+        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "${GROCY_REPO}" . && \
         git verify-commit ${GROCY_VERSION} && \
         rm -rf ${GNUPGHOME} && \
         mkdir data/viewcache && \

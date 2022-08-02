@@ -13,10 +13,9 @@ Follow [these instructions](https://docs.docker.com/install/) to get Docker runn
 
 ## Quickstart
 
-To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/u/grocy), run the following commands:
+To get started using pre-built [Docker Hub grocy images](https://hub.docker.com/u/grocy), run the following command:
 
 ```sh
-docker-compose pull
 docker-compose up
 ```
 
@@ -29,11 +28,11 @@ Since the images contain self-signed certificates, your browser may display a wa
 
 ### Configuration
 
-The grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
+Grocy for Docker setup environment variables are found under [.env](.env) file
 
-Runtime environment variables are read by `docker-compose` from the [grocy.env](grocy.env) file in this directory.
+Grocy runtime environment variables are read by `docker-compose` from the [grocy.env](grocy.env) file in this directory.
 
-The default login credentials are username `admin` and password `admin`; please change these before providing end-user access to your deployment.
+Grocy application reads configuration settings from environment variables prefixed by `GROCY_`.
 
 #### Demo Mode
 
@@ -42,6 +41,8 @@ To run the container in demo mode, override the `GROCY_MODE` environment variabl
 ```sh
 GROCY_MODE=demo docker-compose up
 ```
+
+The default login credentials are username `admin` and password `admin`; please change these before providing end-user access to your deployment.
 
 ### Build
 

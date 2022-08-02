@@ -1,13 +1,14 @@
-version: '2.4'
+version: '2.5'
 
 services:
 
   frontend:
-    image: "grocy/frontend:v3.3.1"
+    image: "grocy/frontend:${GROCY_VERSION}"
     build:
       args:
-        GROCY_VERSION: v3.3.1
-        PLATFORM: linux/amd64
+        GROCY_VERSION: ${GROCY_VERSION}
+        GROCY_REPO: "${GROCY_REPO}"
+        PLATFORM: ${PLATFORM}
       context: .
       dockerfile: Containerfile-frontend
     depends_on:
@@ -22,14 +23,14 @@ services:
       - /var/log/nginx
 
   backend:
-    image: "grocy/backend:v3.3.1"
+    image: "grocy/backend:${GROCY_VERSION}"
     build:
       args:
-        GROCY_VERSION: v3.3.1
-        GROCY_REPO: 
-        PLATFORM: linux/amd64
-        COMPOSER_VERSION: "2.1.5"
-        COMPOSER_CHECKSUM: "be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec"
+        GROCY_VERSION: ${GROCY_VERSION}
+        GROCY_REPO: "${GROCY_REPO}"
+        PLATFORM: ${PLATFORM}
+        COMPOSER_VERSION: "${COMPOSER_VERSION}"
+        COMPOSER_CHECKSUM: "${COMPOSER_CHECKSUM}"
       context: .
       dockerfile: Containerfile-backend
     expose:

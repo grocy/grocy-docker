@@ -3,6 +3,7 @@ ARG PLATFORM
 FROM --platform=${PLATFORM} docker.io/alpine:3.16.1
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
+ARG GROCY_REPO
 ARG GROCY_VERSION
 
 # Install build-time dependencies
@@ -45,11 +46,10 @@ USER nginx
 WORKDIR /var/www
 
 # Extract application release package
-ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 RUN     set -o pipefail && \
         export GNUPGHOME=$(mktemp -d) && \
-        wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
-        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
+        wget "${GROCY_RELEASE_KEY_URI}" -O - | gpg --batch --import && \
+        git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "${GROCY_REPO}" . && \
         git verify-commit ${GROCY_VERSION} && \
         rm -rf ${GNUPGHOME}
 
