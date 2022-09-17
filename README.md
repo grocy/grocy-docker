@@ -20,6 +20,8 @@ docker-compose pull
 docker-compose up
 ```
 
+This will retrieve and start the most recent container images corresponding to the version tag found in [docker-compose.yml](docker-compose.yml).
+
 The grocy application should now be accessible locally to the server:
 
  - [http://localhost](http://localhost)
@@ -42,6 +44,20 @@ To run the container in demo mode, override the `GROCY_MODE` environment variabl
 ```sh
 GROCY_MODE=demo docker-compose up
 ```
+
+#### Image Versioning
+
+Container images published by this repository currently have a human-readable format that begins with the Grocy PHP application version number and includes an incremental integer suffix to indicate the image-build revision.
+
+Revisions are necessary to allow the structure of the container to change.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
+
+Each published image should have a corresponding `git` tag.  This is to allow anyone running, inspecting, or planning to upgrade containers to easily compare between the build instructions between revisions (although it does not, in itself, provide a complete view of the changes within the corresponding containers -- something that can vary over time depending on the time and environment in which they are built).
+
+When a container image release is published (for example, one tagged as `v3.3.1-6` using this version scheme), a "prefix-only" tag is also attached to the release (`v3.3.1`, to continue the example).  This allows users who are comfortable with a version of Grocy to update to the latest container for that version without having to discover a specific version number.
+
+Since maintenance and testing are volunteer-led and time-limited, we do not currently backport changes to earlier released application versions.  In other words: fixes are generally applied only to the most-recent released version of the container image.
+
+This versioning policy could and should evolve over time.
 
 ### Build
 
