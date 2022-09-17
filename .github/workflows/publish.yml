@@ -13,9 +13,9 @@ jobs:
       GROCY_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
     - uses: actions/checkout@v2
-    # Enable Ubuntu development (impish) repository packages, to ensure that a recent version of 'buildah' is available
-    - run: echo "deb http://archive.ubuntu.com/ubuntu/ impish main universe" | sudo tee -a /etc/apt/sources.list
-    - run: echo "deb http://archive.ubuntu.com/ubuntu/ impish-security main universe" | sudo tee -a /etc/apt/sources.list
+    # Enable Ubuntu (jammy) repository packages, to ensure that a recent version of 'buildah' is available
+    - run: echo "deb http://archive.ubuntu.com/ubuntu/ jammy main universe" | sudo tee -a /etc/apt/sources.list
+    - run: echo "deb http://archive.ubuntu.com/ubuntu/ jammy-security main universe" | sudo tee -a /etc/apt/sources.list
     - run: sudo apt-get update
     - run: sudo apt-get install -y buildah qemu-user-static
     # Determine the grocy application version to bundle based on the image tag to publish
