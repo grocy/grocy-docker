@@ -47,7 +47,7 @@ GROCY_MODE=demo docker-compose up
 
 #### Image Versioning
 
-Container images published by this repository currently have a human-readable format that begins with the Grocy PHP application version number and includes an incremental integer suffix to indicate the image-build revision.
+Container images published by this repository currently have a human-readable format that begins with the Grocy application version number and includes an incremental integer suffix to indicate the image-build revision.
 
 When a container image is published (for example, one tagged as `v3.3.1-6` using this version scheme), a "prefix-only" tag is also attached to the release (`v3.3.1`, to continue the example).  This allows users who are comfortable with a version of Grocy to update the surrounding container without having to discover the latest revision number.
 
