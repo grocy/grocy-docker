@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.3.1-6] - 2022-09-17
+
+- Update GitHub Actions build workflow to use Ubuntu jammy
+
 ## [v3.3.1-5] - 2022-09-17
 
 - Rebuild container images with Alpine 3.16.2
