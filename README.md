@@ -51,7 +51,7 @@ Container images published by this repository currently have a human-readable fo
 
 Revisions are necessary to allow the structure of the container to change.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
 
-Each published image should have a corresponding `git` tag.  This is to allow anyone running, inspecting, or planning to upgrade containers to easily compare between the build instructions between revisions (although it does not, in itself, provide a complete view of the changes within the corresponding containers -- something that can vary over time depending on the time and environment in which they are built).
+Each published image should have a corresponding `git` tag.  This is to allow anyone running, inspecting, or planning to upgrade containers to retrieve and compare the build instructions for published containers (although this does not, in itself, provide a complete view of the contents of the relevant containers -- something that can vary depending on the time and environment in which they are built).
 
 When a container image release is published (for example, one tagged as `v3.3.1-6` using this version scheme), a "prefix-only" tag is also attached to the release (`v3.3.1`, to continue the example).  This allows users who are comfortable with a version of Grocy to update to the latest container for that version without having to discover a specific version number.
 
