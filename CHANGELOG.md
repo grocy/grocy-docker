@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.1-5] - 2022-09-17
 
 - Rebuild container images with Alpine 3.16.2
 
