@@ -44,7 +44,7 @@ RUN     apk add --no-cache \
 
 # Install composer from source instead of using (php7-dependent) Alpine Linux package
 # See: https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-RUN     wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -O /tmp/composer.phar && \
+RUN     wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -4 -O /tmp/composer.phar && \
         echo "${COMPOSER_CHECKSUM}  /tmp/composer.phar" | sha256sum -c - && \
         mv /tmp/composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
@@ -63,7 +63,7 @@ WORKDIR /var/www
 ENV GROCY_RELEASE_KEY_URI="https://berrnd.de/data/Bernd_Bestel.asc"
 RUN     set -o pipefail && \
         export GNUPGHOME=$(mktemp -d) && \
-        wget ${GROCY_RELEASE_KEY_URI} -O - | gpg --batch --import && \
+        wget ${GROCY_RELEASE_KEY_URI} -4 -O - | gpg --batch --import && \
         git clone --branch ${GROCY_VERSION} --config advice.detachedHead=false --depth 1 "https://github.com/grocy/grocy.git" . && \
         git verify-commit ${GROCY_VERSION} && \
         rm -rf ${GNUPGHOME} && \
