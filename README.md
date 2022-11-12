@@ -25,9 +25,6 @@ This will retrieve and start the most recent container images corresponding to t
 The grocy application should now be accessible locally to the server:
 
  - [http://localhost](http://localhost)
- - [https://localhost](https://localhost)
-
-Since the images contain self-signed certificates, your browser may display a warning when visiting the HTTPS URL.
 
 ### Configuration
 
