@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Rebuild container imagers with Alpine 3.16.3
+- Deprecate support for self-signed TLS certificates in frontend container
 
 ## [v3.3.1-6] - 2022-09-17
 
