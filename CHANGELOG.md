@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Cleanup: migrate back to Alpine-packaged distribution of composer (PHP package manager)
+
 ## [v3.3.1-7] - 2022-11-13
 
 - Rebuild container imagers with Alpine 3.16.3

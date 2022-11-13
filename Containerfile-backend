@@ -4,8 +4,6 @@ FROM --platform=${PLATFORM} docker.io/alpine:3.16.3
 LABEL maintainer "Talmai Oliveira <to@talm.ai>, James Addison <jay@jp-hosting.net>"
 
 ARG GROCY_VERSION
-ARG COMPOSER_VERSION
-ARG COMPOSER_CHECKSUM
 
 # ensure www-data user exists
 RUN set -eux; \
@@ -18,6 +16,7 @@ RUN set -eux; \
 # Install build-time dependencies
 RUN     apk update && \
         apk add --no-cache \
+            composer \
             git \
             gnupg \
             wget
@@ -41,12 +40,6 @@ RUN     apk add --no-cache \
             php8-openssl \
             php8-zip \
             php8-intl
-
-# Install composer from source instead of using (php7-dependent) Alpine Linux package
-# See: https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-RUN     wget https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar -O /tmp/composer.phar && \
-        echo "${COMPOSER_CHECKSUM}  /tmp/composer.phar" | sha256sum -c - && \
-        mv /tmp/composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 
 # Configure directory permissions
 RUN     chown www-data /var/log/php8 && \
@@ -77,6 +70,7 @@ RUN     composer install --no-interaction --no-dev --optimize-autoloader && \
 # Remove build-time dependencies (privileged)
 USER root
 RUN     apk del \
+            composer \
             git \
             gnupg \
             wget
