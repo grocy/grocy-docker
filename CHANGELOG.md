@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.2-0] - 2022-11-13
 
 - Upgrade to grocy v3.3.2
 - Cleanup: migrate back to Alpine-packaged distribution of composer (PHP package manager)
