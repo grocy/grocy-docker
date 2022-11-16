@@ -1,6 +1,9 @@
 {
 	http_port 8080
 	https_port 8443
+
+	# Do not add the webserver's local certificate authority to the container's trust store
+	skip_install_trust
 }
 
 localhost {
