@@ -15,19 +15,16 @@ RUN     apk add --no-cache \
 # Install system dependencies
 RUN     apk update && \
         apk add --no-cache \
-            nginx
+            caddy
 
 # Configure directory permissions
-RUN     chown -R nginx /var/log/nginx && \
-        rm -rf /var/www/localhost && \
-        chown nginx /var/www
+RUN     mkdir /var/www && \
+        chown caddy /var/www
 
-COPY static/frontend/nginx.conf /etc/nginx/nginx.conf
-COPY static/frontend/common.conf /etc/nginx/common.conf
-COPY static/frontend/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY static/frontend/Caddyfile /etc/caddy/Caddyfile
 
 # Install application dependencies (unprivileged)
-USER nginx
+USER caddy
 WORKDIR /var/www
 
 # Extract application release package
@@ -51,10 +48,10 @@ RUN     apk del \
             wget \
             yarn
 
-VOLUME ["/var/log/nginx"]
+VOLUME ["/var/lib/caddy"]
 
-EXPOSE 8080
+EXPOSE 8080 8443
 
-USER nginx
+USER caddy
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]

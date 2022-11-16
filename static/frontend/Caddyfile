@@ -1,0 +1,21 @@
+http://localhost:8080, https://localhost:8443 {
+  # Issue self-signed certificates on-demand from local certificate authority
+  tls {
+    issuer internal
+    on_demand
+  }
+
+  # Serve static file content
+  file_server
+  root * /var/www/public
+
+  # Fallback to PHP handling for missing files
+  try_files {path} /index.php?{query}
+
+  # Proxy PHP requests to the backend service
+  @php path *.php
+  php_fastcgi @php backend:9000
+
+  # Enable gzip compression
+  encode gzip
+}
