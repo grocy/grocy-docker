@@ -1,4 +1,9 @@
-http://localhost:8080, https://localhost:8443 {
+{
+	http_port 8080
+	https_port 8443
+}
+
+localhost {
 	# Issue self-signed certificates on-demand from local certificate authority
 	tls {
 		issuer internal
