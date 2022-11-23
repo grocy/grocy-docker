@@ -30,8 +30,6 @@ jobs:
         containerfiles: Containerfile-backend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
-          COMPOSER_VERSION=2.1.5
-          COMPOSER_CHECKSUM=be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
     - id: build-grocy-frontend
       uses: redhat-actions/buildah-build@v2.9
       with:
