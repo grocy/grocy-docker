@@ -35,10 +35,10 @@ RUN     chown -R nginx /var/log/nginx && \
         rm -rf /var/www/localhost && \
         chown nginx /var/www
 
-COPY static/frontend/nginx.conf /etc/nginx/nginx.conf
-COPY static/frontend/common.conf /etc/nginx/common.conf
-COPY static/frontend/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY static/frontend/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
+COPY static/frontend-tls-selfsigned/nginx.conf /etc/nginx/nginx.conf
+COPY static/frontend-tls-selfsigned/common.conf /etc/nginx/common.conf
+COPY static/frontend-tls-selfsigned/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY static/frontend-tls-selfsigned/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
 
 # Install application dependencies (unprivileged)
 USER nginx
