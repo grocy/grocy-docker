@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+- Logging-related changes
+  - Configure logging to stdout and stderr from application containers
+  - Remove the nginx log storage volume from frontend containers
+
+- Potentially impactful configuration changes in 'docker-compose.yml'
+  - The default listen port for the frontend container has been updated to 8080
+  - Each container has been configured with a specific 'container_name'
+    - Names were set in the past, and were removed in 1af9459bd81764cf676f36036771779a3a8fd0a1 (they were considered redundant) - this effectively reverts that change
+
+- Add README guidance for upgrading container versions
+- Fixup: bring self-signed TLS certificate frontend container build up-to-date with Alpine 3.16.3
+
 ## [v3.3.2-0] - 2022-11-13
 
 - Upgrade to grocy v3.3.2
