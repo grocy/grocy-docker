@@ -19,6 +19,7 @@ services:
       - /tmp
     volumes:
       - /var/log/nginx
+    container_name: frontend
 
   backend:
     image: "grocy/backend:v3.3.2"
@@ -38,6 +39,7 @@ services:
       - app-db:/var/www/data
     env_file:
       - grocy.env
+    container_name: backend
 
 volumes:
   app-db:
