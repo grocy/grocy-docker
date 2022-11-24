@@ -24,7 +24,7 @@ This will retrieve and start the most recent container images corresponding to t
 
 The grocy application should now be accessible locally to the server:
 
- - [http://localhost](http://localhost)
+ - [http://localhost:8080](http://localhost:8080)
 
 ### Configuration
 
