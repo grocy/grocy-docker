@@ -75,7 +75,7 @@ docker-compose pull
 6. Start the application's containers
 
 ```sh
-docker-compose up -d
+docker-compose up --detach
 ```
 
 7. Log back in to Grocy, to check that the system is working
