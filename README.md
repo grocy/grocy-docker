@@ -75,7 +75,7 @@ docker-compose pull
 6. Start the application's containers
 
 ```sh
-docker-compose up
+docker-compose up -d
 ```
 
 #### Image Versioning
