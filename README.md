@@ -42,6 +42,42 @@ To run the container in demo mode, override the `GROCY_MODE` environment variabl
 GROCY_MODE=demo docker-compose up
 ```
 
+#### Upgrades
+
+The Grocy application is [stateful](https://en.wikipedia.org/wiki/State_(computer_science)), and stores data within a containerized filesystem under the `/var/www/data/` path.
+
+Although most of the container's filesystem is read-only, Docker provides long-term storage to Grocy using [volumes](https://docs.docker.com/storage/volumes/), including a volume named `app-db` that holds the contents of `/var/www/data/`.
+
+During an upgrade of containerized Grocy, it's recommended to follow these steps:
+
+1. Logout of the Grocy application, to pause write activity
+
+2. Stop the application's containers
+
+```sh
+docker-compose stop
+```
+
+3. Take a [backup](https://docs.docker.com/storage/volumes/#back-up-restore-or-migrate-data-volumes) of the Grocy application data (`app-db` volume)
+
+4. Update the contents of this repository (`grocy-docker`) to the latest version
+
+```sh
+git pull
+```
+
+5. Retrieve container images corresponding to the versions listed in `docker-compose.yml`
+
+```sh
+docker-compose pull
+```
+
+6. Start the application's containers
+
+```sh
+docker-compose up
+```
+
 #### Image Versioning
 
 Container images published by this repository currently have a human-readable format that begins with the Grocy application version number and includes an incremental integer suffix to indicate the image-build revision.
