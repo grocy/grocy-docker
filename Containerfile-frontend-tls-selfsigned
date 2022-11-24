@@ -66,8 +66,6 @@ RUN     apk del \
             wget \
             yarn
 
-VOLUME ["/var/log/nginx"]
-
 EXPOSE 8080 8443
 
 USER nginx
