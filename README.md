@@ -46,7 +46,7 @@ GROCY_MODE=demo docker-compose up
 
 The Grocy application is [stateful](https://en.wikipedia.org/wiki/State_(computer_science)), and stores data within a containerized filesystem under the `/var/www/data/` directory.
 
-Although most of the container's filesystem is read-only, Docker provides long-term storage to Grocy using [volumes](https://docs.docker.com/storage/volumes/), including a volume named `app-db` that holds the contents of `/var/www/data/`.
+Although most of the container's filesystem is read-only, Docker provides long-term storage to Grocy using [volumes](https://docs.docker.com/storage/volumes/). The contents of the `/var/www/data` directory are held in a volume named `app-db`.
 
 During an upgrade of containerized Grocy, it's recommended to follow these steps:
 
