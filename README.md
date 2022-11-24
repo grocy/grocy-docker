@@ -66,7 +66,7 @@ docker-compose stop
 git pull
 ```
 
-5. Retrieve container images corresponding to the versions listed in `docker-compose.yml`
+5. Download the container images corresponding to the versions listed in `docker-compose.yml`
 
 ```sh
 docker-compose pull
