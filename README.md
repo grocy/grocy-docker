@@ -50,7 +50,7 @@ Although most of the container's filesystem is read-only, Docker provides long-t
 
 During an upgrade of containerized Grocy, it's recommended to follow these steps:
 
-1. Logout of the Grocy application, to pause write activity
+1. Log all users out of the Grocy application, to pause write activity
 
 2. Stop the application's containers
 
