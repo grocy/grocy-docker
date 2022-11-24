@@ -13,12 +13,13 @@ services:
     depends_on:
       - backend
     ports:
-      - '127.0.0.1:80:8080'
+      - '127.0.0.1:8080:8080'
     read_only: true
     tmpfs:
       - /tmp
     volumes:
       - /var/log/nginx
+    container_name: frontend
 
   backend:
     image: "grocy/backend:v3.3.2"
@@ -26,8 +27,6 @@ services:
       args:
         GROCY_VERSION: v3.3.2
         PLATFORM: linux/amd64
-        COMPOSER_VERSION: "2.1.5"
-        COMPOSER_CHECKSUM: "be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec"
       context: .
       dockerfile: Containerfile-backend
     expose:
@@ -40,6 +39,7 @@ services:
       - app-db:/var/www/data
     env_file:
       - grocy.env
+    container_name: backend
 
 volumes:
   app-db:

@@ -50,7 +50,7 @@ RUN     apk del \
 
 VOLUME ["/var/lib/caddy"]
 
-EXPOSE 8080 8443
+EXPOSE 8080
 
 USER caddy
 

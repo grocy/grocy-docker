@@ -24,7 +24,7 @@ This will retrieve and start the most recent container images corresponding to t
 
 The grocy application should now be accessible locally to the server:
 
- - [http://localhost](http://localhost)
+ - [http://localhost:8080](http://localhost:8080)
 
 ### Configuration
 
@@ -41,6 +41,44 @@ To run the container in demo mode, override the `GROCY_MODE` environment variabl
 ```sh
 GROCY_MODE=demo docker-compose up
 ```
+
+#### Upgrades
+
+The Grocy application is [stateful](https://en.wikipedia.org/wiki/State_(computer_science)), and stores data within a containerized filesystem under the `/var/www/data/` directory.
+
+Although most of the container's filesystem is read-only, Docker provides long-term storage to Grocy using [volumes](https://docs.docker.com/storage/volumes/). The contents of the `/var/www/data` directory are held in a volume named `app-db`.
+
+During an upgrade of containerized Grocy, it's recommended to follow these steps:
+
+1. Log all users out of the Grocy application, to pause write activity
+
+2. Stop the application's containers
+
+```sh
+docker-compose stop
+```
+
+3. Take a [backup](https://docs.docker.com/storage/volumes/#back-up-restore-or-migrate-data-volumes) of the Grocy application data (`app-db` volume)
+
+4. Update the contents of this repository (`grocy-docker`) to the latest version
+
+```sh
+git pull
+```
+
+5. Download the container images corresponding to the versions listed in `docker-compose.yml`
+
+```sh
+docker-compose pull
+```
+
+6. Start the application's containers
+
+```sh
+docker-compose up --detach
+```
+
+7. Log back in to Grocy, to check that the system is working
 
 #### Image Versioning
 

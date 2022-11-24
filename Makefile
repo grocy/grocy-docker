@@ -1,8 +1,6 @@
 .PHONY: build run pod manifest manifest-create %-backend %-frontend
 
 GROCY_VERSION = v3.3.2
-COMPOSER_VERSION = 2.1.5
-COMPOSER_CHECKSUM = be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec
 IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 
 IMAGE_PREFIX ?= docker.io/grocy
@@ -20,7 +18,6 @@ create: pod
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
-        --add-host backend:127.0.0.1 \
         --name frontend \
         --pod grocy-pod \
         --read-only \
@@ -33,7 +30,7 @@ run: create
 
 pod:
 	podman pod rm -f grocy-pod || true
-	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
+	podman pod create --name grocy-pod --add-host backend:127.0.0.1 --publish 127.0.0.1:8080:8080
 
 manifest: manifest-create $(PLATFORM)
 
@@ -45,10 +42,10 @@ manifest-create:
 
 $(PLATFORM): %: %-backend %-frontend
 
-%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Containerfile-backend --platform $* --quiet --tag ${IMAGE_PREFIX}/backend/$*:${IMAGE_TAG})
+%-backend: GROCY_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Containerfile-backend --platform $* --quiet --tag ${IMAGE_PREFIX}/backend/$*:${IMAGE_TAG})
 %-backend:
 	buildah manifest add ${IMAGE_PREFIX}/backend:${IMAGE_TAG} ${GROCY_IMAGE}
 
-%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg COMPOSER_VERSION=${COMPOSER_VERSION} --build-arg COMPOSER_CHECKSUM=${COMPOSER_CHECKSUM} --build-arg PLATFORM=$* --file Containerfile-frontend --platform $* --quiet --tag ${IMAGE_PREFIX}/frontend/$*:${IMAGE_TAG})
+%-frontend: NGINX_IMAGE = $(shell buildah bud --build-arg GROCY_VERSION=${GROCY_VERSION} --build-arg PLATFORM=$* --file Containerfile-frontend --platform $* --quiet --tag ${IMAGE_PREFIX}/frontend/$*:${IMAGE_TAG})
 %-frontend:
 	buildah manifest add ${IMAGE_PREFIX}/frontend:${IMAGE_TAG} ${NGINX_IMAGE}
