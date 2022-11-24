@@ -18,7 +18,6 @@ create: pod
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
-        --add-host backend:127.0.0.1 \
         --name frontend \
         --pod grocy-pod \
         --read-only \
@@ -31,7 +30,7 @@ run: create
 
 pod:
 	podman pod rm -f grocy-pod || true
-	podman pod create --name grocy-pod --publish 127.0.0.1:8080:8080
+	podman pod create --name grocy-pod --add-host backend:127.0.0.1 --publish 127.0.0.1:8080:8080
 
 manifest: manifest-create $(PLATFORM)
 
