@@ -78,6 +78,8 @@ docker-compose pull
 docker-compose up -d
 ```
 
+7. Log back in to Grocy, to check that the system is working
+
 #### Image Versioning
 
 Container images published by this repository currently have a human-readable format that begins with the Grocy application version number and includes an incremental integer suffix to indicate the image-build revision.
