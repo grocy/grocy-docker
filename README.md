@@ -88,7 +88,7 @@ When a container image is published (for example, one tagged as `v3.3.1-6` using
 
 Each published image also corresponds to a `git` tag in the `grocy-docker` repository.  This is to allow anyone running, inspecting, or planning to upgrade `grocy-docker` containers to retrieve and compare the build instructions for specific versions.  Reading the build instructions does not, by itself, provide a complete view of the published contents of the containers -- something that can vary depending on the time and environment in which the containers are built.
 
-The integer suffix revisions are necessary to allow the structure of the container to change even if the version of Grocy running within them does not.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
+The integer revision numbers (suffixes) are necessary to allow the structure of the container to change even if the version of Grocy running within them does not.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
 
 Since maintenance and testing are volunteer-led and time-limited, we generally do not apply changes to previously-released versions of the containers (a process known as 'backporting').  In other words: fixes are generally applied only to the most-recent released version of the container image.
 
