@@ -82,15 +82,15 @@ docker-compose up --detach
 
 #### Image Versioning
 
-Container images published by this repository currently have a human-readable format that begins with the Grocy application version number and includes an incremental integer suffix to indicate the image-build revision.
+Each container image published by this repository is associated with a human-readable version number that begins with the Grocy application version number (`v3.3.1`, for example), followed by an integer suffix (revision number) that starts from zero.
 
-When a container image is published (for example, one tagged as `v3.3.1-6` using this version scheme), a "prefix-only" tag is also attached to the release (`v3.3.1`, to continue the example).  This allows users who are comfortable with a given version of Grocy to update to the latest container for that version without having to discover a specific revision number.
+When a container image is published (for example, one tagged as `v3.3.1-6` using this version scheme), a plain Grocy version tag is also attached to the release (`v3.3.1`, to continue the example).  This allows users who are comfortable with a given version of Grocy to update to the latest container for that version without having to choose a specific revision number.
 
-Each published image also has a corresponding `git` tag.  This is to allow anyone running, inspecting, or planning to upgrade containers to retrieve and compare the build instructions for published containers (although this does not, in itself, provide a complete view of the contents of the relevant containers -- something that can vary depending on the time and environment in which they are built).
+Each published image also corresponds to a `git` tag in the `grocy-docker` repository.  This is to allow anyone running, inspecting, or planning to upgrade `grocy-docker` containers to retrieve and compare the build instructions for specific versions.  Reading the build instructions does not, by itself, provide a complete view of the published contents of the containers -- something that can vary depending on the time and environment in which the containers are built.
 
-Revisions are necessary to allow the structure of the container to change.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
+The integer revision numbers (suffixes) are necessary to allow the structure of the container to change even if the version of Grocy running within them does not.  For example, we may upgrade the operating system components of the container to improve performance, functionality and security.  This doesn't require any change to the Grocy application code, so the prefix remains the same.
 
-Since maintenance and testing are volunteer-led and time-limited, we do not currently backport changes to earlier released application versions.  In other words: fixes are generally applied only to the most-recent released version of the container image.
+Since maintenance and testing are volunteer-led and time-limited, we generally do not apply changes to previously-released versions of the containers (a process known as 'backporting').  In other words: fixes are generally applied only to the most-recent released version of the container image.
 
 This versioning policy could and should evolve over time.
 
