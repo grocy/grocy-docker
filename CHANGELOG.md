@@ -11,6 +11,8 @@
 
 - Fixup: bring self-signed TLS certificate frontend container build up-to-date with Alpine 3.16.3
 - Add README guidance for upgrading container versions
+- Remove some no-longer-used Composer-related environment variables from the PHP container build
+- Store separate copies of the nginx configuration for the 'frontend' and 'frontend-tls-selfsigned' containers in git
 
 ## [v3.3.2-0] - 2022-11-13
 
