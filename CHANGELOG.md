@@ -9,8 +9,8 @@
 - Potentially impactful configuration changes in 'docker-compose.yml'
   - The default listen port for the frontend container has been updated to 8080
 
-- Add README guidance for upgrading container versions
 - Fixup: bring self-signed TLS certificate frontend container build up-to-date with Alpine 3.16.3
+- Add README guidance for upgrading container versions
 
 ## [v3.3.2-0] - 2022-11-13
 
