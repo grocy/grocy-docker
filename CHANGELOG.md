@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.2-1] - 2022-11-26
 
 - Logging-related changes
   - Configure logging to stdout and stderr from application containers
