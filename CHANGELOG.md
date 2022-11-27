@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.0.1-13] - 2022-11-27
+
+- Deprecate support for self-signed TLS certificates in nginx container (backport of #184 + #193)
+
 ## [v3.0.1-12] - 2021-07-18
 
 ### Changed
