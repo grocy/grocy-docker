@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Rebuild container imagers with Alpine 3.17.0
+- Configure restart policy 'unless-stopped' in docker-compose.yml
+
 ## [v3.3.2-1] - 2022-11-26
 
 - Logging-related changes
