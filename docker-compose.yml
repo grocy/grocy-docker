@@ -19,6 +19,7 @@ services:
       - /tmp
     volumes:
       - /var/log/nginx
+    restart: unless-stopped
 
   backend:
     image: "grocy/backend:v3.3.2"
@@ -38,6 +39,7 @@ services:
       - app-db:/var/www/data
     env_file:
       - grocy.env
+    restart: unless-stopped
 
 volumes:
   app-db:
