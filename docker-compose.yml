@@ -35,7 +35,7 @@ services:
     tmpfs:
       - /tmp
     volumes:
-      - /var/log/php81
+      - /var/log/php8
       - app-db:/var/www/data
     env_file:
       - grocy.env

@@ -14,7 +14,7 @@ create: pod
         --name backend \
         --pod grocy-pod \
         --read-only \
-        --volume /var/log/php81 \
+        --volume /var/log/php8 \
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
