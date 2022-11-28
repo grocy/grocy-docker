@@ -31,8 +31,7 @@ RUN     openssl req \
         chown nginx /etc/ssl/private/grocy-nginx.crt
 
 # Configure directory permissions
-RUN     chown -R nginx /var/log/nginx && \
-        rm -rf /var/www/localhost && \
+RUN     rm -rf /var/www/localhost && \
         chown nginx /var/www
 
 COPY static/frontend-tls-selfsigned/nginx.conf /etc/nginx/nginx.conf

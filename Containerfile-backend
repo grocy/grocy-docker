@@ -42,8 +42,7 @@ RUN     apk add --no-cache \
             php8-intl
 
 # Configure directory permissions
-RUN     chown www-data /var/log/php8 && \
-        mkdir /var/www && \
+RUN     mkdir /var/www && \
         chown www-data /var/www
 
 COPY static/backend/www.conf /etc/php8/php-fpm.d/zz-docker.conf
