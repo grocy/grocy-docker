@@ -14,7 +14,6 @@ create: pod
         --name backend \
         --pod grocy-pod \
         --read-only \
-        --volume /var/log/php8 \
         --volume app-db:/var/www/data \
         ${IMAGE_PREFIX}/backend:${IMAGE_TAG}
 	podman create \
@@ -22,7 +21,6 @@ create: pod
         --pod grocy-pod \
         --read-only \
         --tmpfs /tmp \
-        --volume /var/log/nginx \
         ${IMAGE_PREFIX}/frontend:${IMAGE_TAG}
 
 run: create

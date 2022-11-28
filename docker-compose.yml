@@ -17,8 +17,6 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-    volumes:
-      - /var/log/nginx
     restart: unless-stopped
 
   backend:
@@ -35,7 +33,6 @@ services:
     tmpfs:
       - /tmp
     volumes:
-      - /var/log/php8
       - app-db:/var/www/data
     env_file:
       - grocy.env
