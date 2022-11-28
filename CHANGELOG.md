@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.3.2-3] - 2022-11-28
+
+- Revert to Alpine 3.16.3 and PHP 8.0
+  - PHP 8.1 isn't yet officially supported by Grocy, and Alpine 3.17.0 doesn't currently include PHP 8.0
+
 ## [v3.3.2-2] - 2022-11-27
 
 - Rebuild container imagers with Alpine 3.17.0
