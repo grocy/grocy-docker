@@ -54,4 +54,4 @@ EXPOSE 8080
 
 USER nginx
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;", "-e", "/proc/self/fd/2"]
