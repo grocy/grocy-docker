@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+- Rebuild container imagers with Alpine 3.17.0 (#205)
+  - Also removes PHP log volume mounts, since those volumes are no longer written to
+- Fix an nginx 'alert' error that appeared when starting the frontend container (#204 - thank you, @RedlineTriad)
+
 ## [v3.3.2-3] - 2022-11-28
 
 - Revert to Alpine 3.16.3 and PHP 8.0
