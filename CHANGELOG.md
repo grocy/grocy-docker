@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.2-4] - 2022-12-18
 
 - Rebuild container imagers with Alpine 3.17.0 (#205)
   - Also removes PHP log volume mounts, since those volumes are no longer written to
