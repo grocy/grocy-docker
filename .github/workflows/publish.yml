@@ -60,13 +60,11 @@ jobs:
       uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
-        acs-report-enable: true
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
     - id: scan-grocy-frontend
       uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
-        acs-report-enable: true
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
     - uses: github/codeql-action/upload-sarif@v2
       with:
