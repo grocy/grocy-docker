@@ -61,15 +61,15 @@ jobs:
       with:
         image: docker.io/grocy/${{ steps.build-grocy-backend.outputs.image-with-tag }}
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        category: scan-grocy-backend
+        sarif_file: ${{ steps.scan-grocy-backend.outputs.sarif }}
     - id: scan-grocy-frontend
       uses: anchore/scan-action@v3
       with:
         image: docker.io/grocy/${{ steps.build-grocy-frontend.outputs.image-with-tag }}
         fail-build: false  # TODO: remove this when scan-action steps are moved to before container publish
-    - uses: github/codeql-action/upload-sarif@v2
-      with:
-        category: scan-grocy-backend
-        sarif_file: ${{ steps.scan-grocy-backend.outputs.sarif }}
     - uses: github/codeql-action/upload-sarif@v2
       with:
         category: scan-grocy-frontend
