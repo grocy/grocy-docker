@@ -22,7 +22,7 @@ jobs:
     - run: echo "GROCY_VERSION=${{ env.GROCY_IMAGE_TAG }}" | sed -e "s/-[0-9a-f]*$//" >> $GITHUB_ENV
     # Build multi-architecture container manifests
     - id: build-grocy-backend
-      uses: redhat-actions/buildah-build@v2.9
+      uses: redhat-actions/buildah-build@v2.12
       with:
         image: backend
         tags: ${{ env.GROCY_IMAGE_TAG }} ${{ env.GROCY_VERSION }}
@@ -31,7 +31,7 @@ jobs:
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
     - id: build-grocy-frontend
-      uses: redhat-actions/buildah-build@v2.9
+      uses: redhat-actions/buildah-build@v2.12
       with:
         image: frontend
         tags: ${{ env.GROCY_IMAGE_TAG }} ${{ env.GROCY_VERSION }}
