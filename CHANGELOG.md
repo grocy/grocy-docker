@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v3.3.2-7] - 2023-05-12
 
 - Container publish workflow:
   - Cleanup: remove no-longer-applicable 'acs-report-enable' option from Anchore scan action config
