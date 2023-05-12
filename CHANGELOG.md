@@ -6,6 +6,7 @@
   - Cleanup: remove no-longer-applicable 'acs-report-enable' option from Anchore scan action config
   - Adjustment: re-order container scan and upload steps to avoid file clobbering
     - Note: if-and-when implemented, https://github.com/anchore/scan-action/issues/216 could provide an alternative
+- Rebuild container imagers with Alpine 3.18.0
 
 ## [v3.3.2-6] - 2023-03-31
 
