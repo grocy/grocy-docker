@@ -26,6 +26,9 @@ create: pod
 run: create
 	podman pod start grocy-pod
 
+stop:
+	podman pod stop grocy-pod
+
 pod:
 	podman pod rm -f grocy-pod || true
 	podman pod create --name grocy-pod --add-host backend:127.0.0.1 --publish 127.0.0.1:8080:8080
