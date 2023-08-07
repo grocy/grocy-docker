@@ -1,6 +1,6 @@
 .PHONY: build run pod manifest manifest-create %-backend %-frontend
 
-GROCY_VERSION = v4.0.0
+GROCY_VERSION = v4.0.1
 IMAGE_TAG ?= $(shell git describe --tags --match 'v*' --dirty)
 
 IMAGE_PREFIX ?= docker.io/grocy
