@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v4.0.1-0] - 2023-08-07
 
 - Upgrade to grocy v4.0.1
 
