@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - docker-compose: overlay the backend container viewcache directory with a tmpfs filesystem
+- Upgrade to grocy v4.0.2
 
 ## [v4.0.1-0] - 2023-08-07
 
