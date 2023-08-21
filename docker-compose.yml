@@ -32,7 +32,7 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-      - /var/www/data/viewcache:mode=755,uid=82,gid=82,size=4m
+      - /var/www/data/viewcache:mode=755,uid=82,gid=82,size=16m
     volumes:
       - app-db:/var/www/data
     env_file:
