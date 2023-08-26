@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Rebuild container imagers with Alpine 3.18.3
+
 ## [v4.0.2-0] - 2023-08-21
 
 - docker-compose: overlay the backend container viewcache directory with a tmpfs filesystem
