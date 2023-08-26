@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v4.0.2-1] - 2023-08-26
 
 - Rebuild container imagers with Alpine 3.18.3
 
