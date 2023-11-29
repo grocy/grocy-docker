@@ -31,7 +31,7 @@ jobs:
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
         labels: |
-          org.opencontainers.image.info=https://grocy.info/
+          org.opencontainers.image.documentation=https://grocy.info/
           org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
           org.opencontainers.image.licenses=MIT
     - id: build-grocy-frontend
@@ -44,7 +44,7 @@ jobs:
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
         labels: |
-          org.opencontainers.image.info=https://grocy.info/
+          org.opencontainers.image.documentation=https://grocy.info/
           org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
           org.opencontainers.image.licenses=MIT
     # Publish the container manifests
