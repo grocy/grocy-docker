@@ -33,6 +33,7 @@ jobs:
         labels: |
           org.opencontainers.image.documentation=https://grocy.info/
           org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
+          org.opencontainers.image.version=${{ github.event.release.tag_name }}
           org.opencontainers.image.licenses=MIT
     - id: build-grocy-frontend
       uses: redhat-actions/buildah-build@v2.12
@@ -46,6 +47,7 @@ jobs:
         labels: |
           org.opencontainers.image.documentation=https://grocy.info/
           org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
+          org.opencontainers.image.version=${{ github.event.release.tag_name }}
           org.opencontainers.image.licenses=MIT
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
