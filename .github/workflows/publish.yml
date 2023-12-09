@@ -12,7 +12,7 @@ jobs:
     env:
       GROCY_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     # Enable Ubuntu (jammy) repository packages, to ensure that a recent version of 'buildah' is available
     - run: echo "deb http://archive.ubuntu.com/ubuntu/ jammy main universe" | sudo tee -a /etc/apt/sources.list
     - run: echo "deb http://archive.ubuntu.com/ubuntu/ jammy-security main universe" | sudo tee -a /etc/apt/sources.list
