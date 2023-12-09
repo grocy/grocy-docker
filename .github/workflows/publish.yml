@@ -50,14 +50,14 @@ jobs:
           org.opencontainers.image.version=${{ env.GROCY_IMAGE_TAG }}
           org.opencontainers.image.licenses=MIT
     # Publish the container manifests
-    - uses: redhat-actions/push-to-registry@v2.5
+    - uses: redhat-actions/push-to-registry@v2.7
       with:
         image: ${{ steps.build-grocy-backend.outputs.image }}
         tags: ${{ steps.build-grocy-backend.outputs.tags }}
         registry: docker.io/grocy
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - uses: redhat-actions/push-to-registry@v2.5
+    - uses: redhat-actions/push-to-registry@v2.7
       with:
         image: ${{ steps.build-grocy-frontend.outputs.image }}
         tags: ${{ steps.build-grocy-frontend.outputs.tags }}
