@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Rebuild container imagers with Alpine 3.19.0
+- Upgrade to PHP 8.2
+
 ## [v4.0.3-1] - 2023-11-04
 
 - Rebuild container imagers with Alpine 3.18.4
