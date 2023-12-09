@@ -30,6 +30,11 @@ jobs:
         containerfiles: Containerfile-backend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
+        labels: |
+          org.opencontainers.image.documentation=https://grocy.info/
+          org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
+          org.opencontainers.image.version=${{ env.GROCY_IMAGE_TAG }}
+          org.opencontainers.image.licenses=MIT
     - id: build-grocy-frontend
       uses: redhat-actions/buildah-build@v2.12
       with:
@@ -39,6 +44,11 @@ jobs:
         containerfiles: Containerfile-frontend
         build-args: |
           GROCY_VERSION=${{ env.GROCY_VERSION }}
+        labels: |
+          org.opencontainers.image.documentation=https://grocy.info/
+          org.opencontainers.image.source=https://github.com/grocy/grocy-docker/
+          org.opencontainers.image.version=${{ env.GROCY_IMAGE_TAG }}
+          org.opencontainers.image.licenses=MIT
     # Publish the container manifests
     - uses: redhat-actions/push-to-registry@v2.5
       with:
