@@ -1,5 +1,8 @@
 # grocy-docker
 
+> [!NOTE]
+> This repository is looking for a new maintainer.  If you're interested in taking that role, please familiarize yourself with the current release automation (issue [#109](https://github.com/grocy/grocy-docker/issues/109)), and contact @jayaddison and @berrnd to register your interest in issue thread [#127](https://github.com/grocy/grocy-docker/issues/127).
+
 ERP beyond your fridge - now containerized!
 
 This repository includes container build infrastructure for [grocy](https://github.com/grocy/grocy).
