@@ -1,58 +1,100 @@
-{{- $fullName := include "chart.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: {{ include "chart.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ $fullName }}
-  name: {{ $fullName }}
+    {{- include "chart.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ $fullName }}
-  strategy:
-    type: Recreate
+      {{- include "chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      creationTimestamp: null
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app.kubernetes.io/name: {{ $fullName }}
+        {{- include "chart.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "chart.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       hostAliases:
         - ip: 127.0.0.1
           hostnames:
             - backend
       containers:
-        - env:
-            - name: GROCY_CULTURE
-              value: en
-            - name: GROCY_MODE
-              value: production
-            - name: MAX_UPLOAD
-              value: 50M
-            - name: PHP_MAX_FILE_UPLOAD
-              value: "200"
-            - name: PHP_MAX_POST
-              value: 100M
-            - name: PHP_MEMORY_LIMIT
-              value: 512M
-          image: grocy/backend:v4.0.3
-          name: backend
+        - name: frontend
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: grocy/frontend:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 9000
-          resources: {}
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
           volumeMounts:
-            - mountPath: /var/www/data
-              name: app-db
-        - image: grocy/frontend:v4.0.3
-          name: frontend
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: backend
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: grocy/backend:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+           - name: GROCY_CULTURE
+             value: en
+           - name: GROCY_MODE
+             value: production
+           - name: MAX_UPLOAD
+             value: 50M
+           - name: PHP_MAX_FILE_UPLOAD
+             value: "200"
+           - name: PHP_MAX_POST
+             value: 100M
+           - name: PHP_MEMORY_LIMIT
+             value: 512M
           ports:
-            - containerPort: 8080
-              hostIP: 127.0.0.1
-              name: http
-      restartPolicy: Always
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
-        - name: app-db
-          persistentVolumeClaim:
-            claimName: app-db
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,17 +1,15 @@
-{{- $fullName := include "chart.fullname" . -}}
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  name: {{ include "chart.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ $fullName }}
-  name: {{ $fullName }}
+    {{- include "chart.labels" . | nindent 4 }}
 spec:
+  type: {{ .Values.service.type }}
   ports:
-    - name: "8080"
-      port: 8080
-      targetPort: 8080
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    app.kubernetes.io/name: {{ $fullName }}
-status:
-  loadBalancer: {}
+    {{- include "chart.selectorLabels" . | nindent 4 }}
