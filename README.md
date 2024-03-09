@@ -1,3 +1,6 @@
+# ⚠️ UNMAINTAINED ⚠️
+### please consider using https://github.com/linuxserver/docker-grocy instead
+
 # grocy-docker
 
 > [!NOTE]
