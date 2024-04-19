@@ -3,10 +3,10 @@ version: '2.4'
 services:
 
   frontend:
-    image: "grocy/frontend:v4.0.3"
+    image: "grocy/frontend:v4.2.0"
     build:
       args:
-        GROCY_VERSION: v4.0.3
+        GROCY_VERSION: v4.2.0
         PLATFORM: linux/amd64
       context: .
       dockerfile: Containerfile-frontend
@@ -20,10 +20,10 @@ services:
     restart: unless-stopped
 
   backend:
-    image: "grocy/backend:v4.0.3"
+    image: "grocy/backend:v4.2.0"
     build:
       args:
-        GROCY_VERSION: v4.0.3
+        GROCY_VERSION: v4.2.0
         PLATFORM: linux/amd64
       context: .
       dockerfile: Containerfile-backend
