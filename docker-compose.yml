@@ -13,7 +13,7 @@ services:
     depends_on:
       - backend
     ports:
-      - '127.0.0.1:8080:8080'
+      - '8080:8080'
     read_only: true
     tmpfs:
       - /tmp
