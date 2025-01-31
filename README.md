@@ -1,16 +1,20 @@
 # grocy-docker
 
-> [!NOTE]
-> This project (grocy-docker, not [Grocy](https://github.com/grocy/grocy) itself) is currently unmaintained and looking for a new maintainer.
+-----
+-----
+> [!CAUTION]
+> This project (grocy-docker, not [Grocy](https://github.com/grocy/grocy) itself) is retired and no longer available.
 >
-> If you're interested in taking that role, please familiarize yourself with the current release automation (issue [#109](https://github.com/grocy/grocy-docker/issues/109)), and contact @jayaddison and @berrnd to register your interest in issue thread [#127](https://github.com/grocy/grocy-docker/issues/127).
+> Use the LinuxServer.io image instead: https://hub.docker.com/r/linuxserver/grocy
+> 
+> Also references: https://www.reddit.com/r/grocy/comments/1iejamy
+-----
+-----
 
+<details><summary>Original README</summary>
 ERP beyond your fridge - now containerized!
 
 This repository includes container build infrastructure for [grocy](https://github.com/grocy/grocy).
-
-[![Docker Pulls](https://img.shields.io/docker/pulls/grocy/backend.svg)](https://hub.docker.com/r/grocy/backend/)
-[![Docker Stars](https://img.shields.io/docker/stars/grocy/backend.svg)](https://hub.docker.com/r/grocy/backend/)
 
 ## Prerequisites
 
@@ -110,3 +114,4 @@ docker-compose build
 #### OCI Images
 
 Optional support for building [opencontainer](https://www.opencontainers.org/) images is available via the [Makefile](Makefile) provided.
+</details>
